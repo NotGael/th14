@@ -52,6 +52,13 @@ class AuthController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
+            'section_id' => 'required',
+            'address_id' => 'required',
+            'country' => 'required',
+            'postalcode' => 'required',
+            'city' => 'required',
+            'street' => 'required',
+            'number' => 'required',
         ]);
     }
 
@@ -63,10 +70,21 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
+        /*$address = App\Address::firstOrCreate([
+            'country' => $data['country'],
+            'postalcode' => $data['postalcode'],
+            'city' => $data['city'],
+            'street' => $data['street'],
+            'number' => $data['number'],
+        ]);*/
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
+            'section_id' => $data['section_id'],
+            'address_id' => $data['address_id'],
+            //'address_id' => $address->id(),
         ]);
     }
 }

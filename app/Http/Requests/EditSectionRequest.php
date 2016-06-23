@@ -1,10 +1,10 @@
 <?php
-// php artisan make:request EditReminderRequest
+// php artisan make:request EditSectionRequest
 namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class EditReminderRequest extends Request
+class EditSectionRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class EditReminderRequest extends Request
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,7 +24,7 @@ class EditReminderRequest extends Request
     public function rules()
     {
         return [
-            'content' => 'required|min:10'
+            'name' => 'required|min:5',
         ];
     }
 }

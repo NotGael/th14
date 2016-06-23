@@ -2,11 +2,19 @@
 
 @section('content')
 
+    <h1>Liste de tous les rappels</h1>
+    <div class="list-group">
+
     @foreach($reminders as $reminder)
 
-        <p>{{ $reminder->content }}</p>
-        <p><a class="btn btn-primary" href="{{route('reminders.edit', $reminder)}}">Editer</a></p>
+        <a href="{{route('reminders.edit', $reminder)}}" class="list-group-item">
+            <p class="list-group-item-heading">
+                {{ $reminder->content }}
+            </p>
+        </a>
 
     @endforeach
+
+    </div>
 
 @endsection
