@@ -8,9 +8,7 @@
     @foreach($reminders as $reminder)
 
         <a href="{{route('reminders.edit', $reminder)}}" class="list-group-item">
-            <p class="list-group-item-heading">
-                {{ $reminder->content }}
-            </p>
+            {{ $reminder->content }}
         </a>
 
     @endforeach
