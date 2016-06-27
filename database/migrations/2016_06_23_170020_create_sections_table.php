@@ -14,7 +14,9 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->longText('name');
+            $table->string('name');
+            $table->longText('content');
+            $table->string('image_path')
             $table->timestamps();
         });
 

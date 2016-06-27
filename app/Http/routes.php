@@ -15,3 +15,4 @@ Route::auth();
 Route::get('/', 'HomeController@index');
 Route::resource('reminders', 'RemindersController');
 Route::resource('sections', 'SectionsController');
+Route::resource('photographies', 'PhotographiesController');

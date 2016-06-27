@@ -13,6 +13,7 @@ use App\Http\Requests;
 Use App\Http\Requests\EditSectionRequest;
 
 use App\Section;
+use App\User;
 
 class SectionsController extends Controller
 {
@@ -35,7 +36,8 @@ class SectionsController extends Controller
     public function create()
     {
         $section = new Section();
-        return view('sections.create', compact('section'));
+        $users = User::lists('name','id');
+        return view('sections.create', compact('section', 'users'));
     }
 
     /**
@@ -71,7 +73,10 @@ class SectionsController extends Controller
     public function edit($id)
     {
         $section = Section::findOrFail($id);
-        return view('sections.edit', compact('section'));
+        $users = User::lists('name','id');
+        $users_section = User::select('name')->where('section_id', $id)->get();
+
+        return view('sections.edit', compact('section', 'users', 'users_section'));
     }
 
     /**

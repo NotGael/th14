@@ -13,6 +13,8 @@
                         <a href="{{route('reminders.index')}}" class="list-group-item">Liste des rappels</a>
                         <a href="{{route('sections.create')}}" class="list-group-item">Création de sections</a>
                         <a href="{{route('sections.index')}}" class="list-group-item">Liste des sections</a>
+                        <a href="{{route('photographies.create')}}" class="list-group-item">Upload de photos</a>
+                        <a href="{{route('photographies.index')}}" class="list-group-item">Liste des photos</a>
                     </div>
                 </div>
             </div>
