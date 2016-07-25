@@ -1,9 +1,9 @@
 <?php
-//php artisan make:migration create_sections_table --create=sections
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateSectionsTable extends Migration
+class CreatePostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,16 +12,16 @@ class CreateSectionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('sections', function (Blueprint $table) {
+        Schema::create('posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
-            $table->longText('content');
-            $table->string('image_path')
-            $table->timestamps();
-        });
-
-        Schema::table('users', function(Blueprint $table) {
+            $table->integer('user_id')->unsigned()->index();
             $table->integer('section_id')->unsigned()->index();
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->longText('content');
+            $table->boolean('online')->default(false);
+            $table->dateTime('published_at');
+            $table->timestamps();
         });
     }
 
@@ -32,6 +32,6 @@ class CreateSectionsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('sections');
+        Schema::drop('posts');
     }
 }

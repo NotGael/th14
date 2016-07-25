@@ -14,6 +14,8 @@ class CreateRemindersTable extends Migration
     {
         Schema::create('reminders', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->integer('section_id')->unsigned()->index();
             $table->string('content');
             $table->timestamps();
         });

@@ -14,6 +14,8 @@ class CreatePhotographiesTable extends Migration
     {
         Schema::create('photographies', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('user_id')->unsigned()->index();
+            $table->integer('section_id')->unsigned()->index();
             $table->boolean('is_active')->default(false);
             $table->boolean('is_featured')->default(false);
             $table->string('image_name')->unique();
@@ -23,6 +25,14 @@ class CreatePhotographiesTable extends Migration
             $table->string('mobile_image_path');
             $table->string('mobile_extension', 10);
             $table->timestamps();
+        });
+
+        Schema::table('sections', function(Blueprint $table) {
+            $table->integer('photography_id')->unsigned()->index();
+        });
+
+        Schema::table('users', function(Blueprint $table) {
+            $table->integer('photography_id')->unsigned()->index();
         });
     }
 

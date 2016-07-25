@@ -25,6 +25,9 @@ class EditSectionRequest extends Request
     {
         return [
             'name' => 'required|min:5',
+            'content' => 'alpha-num | required | min:50',
+            'image' => 'required | mimes:jpeg,jpg,bmp,png | max:10000',
+            'user_id' => 'num | required | max:10000 | exists:users,id',
         ];
     }
 }

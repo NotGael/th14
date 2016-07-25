@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Requests;
 Use App\Http\Requests\EditSectionRequest;
 
+use App\Photography;
 use App\Section;
 use App\User;
 
@@ -37,7 +38,8 @@ class SectionsController extends Controller
     {
         $section = new Section();
         $users = User::lists('name','id');
-        return view('sections.create', compact('section', 'users'));
+        $photographies = Photography::lists('id', 'image_name', 'image_path', 'image_extension');
+        return view('sections.create', compact('section', 'photographies', 'users'));
     }
 
     /**

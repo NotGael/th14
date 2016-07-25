@@ -12,7 +12,12 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'section_id', 'address_id'
+        'address_id',
+        'section_id',
+        'photography_id',
+        'name',
+        'email',
+        'password',
     ];
 
     /**
@@ -32,6 +37,21 @@ class User extends Authenticatable
     public function section()
     {
         return $this->belongsTo('App\Section');
+    }
+
+    public function photography()
+    {
+        return $this->belongsTo('App\Photography');
+    }
+
+    public function photographies()
+    {
+        return $this->hasMany('App\Photography', 'user_id');
+    }
+
+    public function reminders()
+    {
+        return $this->hasMany('App\Reminder', 'user_id');
     }
 
 }

@@ -12,6 +12,8 @@ class Photography extends Model
     * @var array
     */
     protected $fillable = [
+        'user_id',
+        'section_id',
         'is_active',
         'is_featured',
         'image_name',
@@ -22,4 +24,15 @@ class Photography extends Model
         'mobile_extension',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
+    public function section()
+    {
+        return $this->belongsTo('App\Section');
+    }
+
+    
 }
