@@ -20,6 +20,11 @@ class Post extends Model
         'online',
     ];
 
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+
     public function section()
     {
         return $this->belongsTo('App\Section');

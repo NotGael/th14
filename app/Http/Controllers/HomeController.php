@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 
+use App\Reminder;
+use App\Post;
+use App\User;
+use App\Photography;
+
 class HomeController extends Controller
 {
     /**
@@ -24,6 +29,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $reminders = Reminder::get();
+        $post = Post::with('section')->with('user')->where('online', true)->orderBy('published_at', 'desc')->first();
+        $photographies = Photography::all();
+        return view('home', compact('reminders', 'post', 'photographies'));
     }
 }
