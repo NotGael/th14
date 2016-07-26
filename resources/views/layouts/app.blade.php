@@ -13,17 +13,7 @@
     <title>TH14</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
-
-    <!-- Just for debugging purposes. Don't actually copy these 2 lines! -->
-    <!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
-    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -33,58 +23,72 @@
   </head>
 
   <body style="padding-top: 50px;">
+    <!-- Test -->
 
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="{{ url('/') }}">TH14</a>
-        </div>
-        <div id="navbar" class="collapse navbar-collapse">
-          <ul class="nav navbar-nav">
-            <li><a href="{{ url('/rappels') }}">Rappels</a></li>
-            <li><a href="{{ url('/articles') }}">Articles</a></li>
-            <li><a href="{{ url('/photos') }}">Photos</a></li>
-            <li class="active"><a href="{{ url('/admin') }}">Admin</a></li>
-          </ul>
-          <!-- Right Side Of Navbar -->
-          <ul class="nav navbar-nav navbar-right">
+
+    <div class="container">
+
+      <!-- Static navbar -->
+      <nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url('/') }}">TH14</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li {{ Request::path() == 'rappels' ? 'class=active' :  null }} >
+                <a href="{{ url('/rappels') }}">Rappels</a></li>
+              <li {{ Request::path() == 'articles' ? 'class=active' :  null }} >
+                <a href="{{ url('/articles') }}">Articles</a></li>
+              <li {{ Request::path() == 'photos' ? 'class=active' :  null }} >
+                <a href="{{ url('/photos') }}">Photos</a></li>
+              <li {{ Request::path() == 'admin' ? 'class=active' :  null }} >
+                <a href="{{ url('/admin') }}">Admin</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+
+
+
               <!-- Authentication Links -->
               @if (Auth::guest())
                   <li><a href="{{ url('/login') }}">Login</a></li>
                   <li><a href="{{ url('/register') }}">Register</a></li>
               @else
-                  <li class="dropdown">
-                      <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                          {{ Auth::user()->name }} <span class="caret"></span>
-                      </a>
-
-                      <ul class="dropdown-menu" role="menu">
-                          <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
-                      </ul>
-                  </li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->name }} <span class="caret"></span></a>
+                <ul class="dropdown-menu">
+                    <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Logout</a></li>
+                </ul>
+              </li>
               @endif
-          </ul>
-        </div><!--/.nav-collapse -->
-      </div>
-    </nav>
+
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+      </nav>
 
     @yield('content')
+
+    <p>Rappel : {{ Request::path() == 'rappels' ? "oui" :  "non" }}</p>
+    <p>Articles : {{ Request::path() == 'articles' ? "oui" :  "non" }}</p>
+    <p>Photos : {{ Request::path() == 'photos' ? "oui" :  "non" }}</p>
+    <p>Admin : {{ Request::path() == 'admin' ? "oui" :  "non" }}</p>
+
+
+  </div>
     <!-- /.container -->
 
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js"><\/script>')</script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   </body>
 </html>
