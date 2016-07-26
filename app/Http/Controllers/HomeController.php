@@ -32,6 +32,24 @@ class HomeController extends Controller
         $reminders = Reminder::get();
         $post = Post::with('section')->with('user')->where('online', true)->orderBy('published_at', 'desc')->first();
         $photographies = Photography::all();
-        return view('home', compact('reminders', 'post', 'photographies'));
+        return view('main.index', compact('reminders', 'post', 'photographies'));
+    }
+
+    public function reminders()
+    {
+        $reminders = Reminder::with('section')->with('user')->get();
+        return view('main.reminders', compact('reminders'));
+    }
+
+    public function posts()
+    {
+        $posts = Post::get();
+        return view('main.posts', compact('posts'));
+    }
+
+    public function photographies()
+    {
+        $photographies = Photography::with('section')->with('user')->get();
+        return view('main.photographies', compact('photographies'));
     }
 }

@@ -3,13 +3,13 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <h1>Homepage</h1>
+        <h1>Th14</h1>
     </div>
     <div class="row">
         <h2>Rappels</h2>
         <ul>
         @foreach($reminders as $reminder)
-            <li>{{ $reminder->content }}</li>
+            <li><a href="{{ url('/rappels') }}">{{ $reminder->content }}</a></li>
         @endforeach
         </ul>
     </div>
@@ -22,7 +22,7 @@
             <p>TODO<p>
             <p>TODO<p>
         </div>
-        <div class="col-md-6">
+        <div class="col-md-6"><a href="{{ url('/articles') }}">
             <h2>Dernier article</h2>
 
                 <h3>{{ $post->title }}</h3>
@@ -35,7 +35,7 @@
                     </em></p>
                 @endif
                 <p>{{ $post->content }}</p>
-
+              </a>
         </div>
     </div>
 
@@ -43,30 +43,12 @@
         <h2>Photos</h2>
         <ul>
         @foreach($photographies as $photography )
-            <li>
+            <li><a href="{{ url('/photos') }}">
               <img src="/th14/public/imgs/photographies/thumbnails/{{ 'thumb-'. $photography->image_name . '.' .
                   $photography->image_extension }}">
-            </li>
+            </a></li>
         @endforeach
         </ul>
-    </div>
-
-    <div class="row">
-        <div class="list-group">
-            <h1>Fonctionnalité implémentée</h1>
-            <h2>Reminders</h2>
-            <a href="{{route('reminders.create')}}" class="list-group-item">Création de rappels</a>
-            <a href="{{route('reminders.index')}}" class="list-group-item">Liste des rappels</a>
-            <h2>Sections</h2>
-            <a href="{{route('sections.create')}}" class="list-group-item">Création de sections</a>
-            <a href="{{route('sections.index')}}" class="list-group-item">Liste des sections</a>
-            <h2>Photos</h2>
-            <a href="{{route('photographies.create')}}" class="list-group-item">Upload de photos</a>
-            <a href="{{route('photographies.index')}}" class="list-group-item">Liste des photos</a>
-            <h2>News</h2>
-            <a href="{{route('news.create')}}" class="list-group-item">Création d'articles</a>
-            <a href="{{route('news.index')}}" class="list-group-item">Liste des articles</a>
-        </div>
     </div>
 
 </div>

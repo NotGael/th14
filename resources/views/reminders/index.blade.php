@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <h1>Liste de tous les rappels</h1>
+<div class="container">
+    <h1>Rappels</h1>
     <div class="list-group">
 
     @foreach($reminders as $reminder)
@@ -14,5 +14,5 @@
     @endforeach
 
     </div>
-
+</div>
 @endsection
