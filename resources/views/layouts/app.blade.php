@@ -75,12 +75,6 @@
 
     @yield('content')
 
-    <p>Rappel : {{ Request::path() == 'rappels' ? "oui" :  "non" }}</p>
-    <p>Articles : {{ Request::path() == 'articles' ? "oui" :  "non" }}</p>
-    <p>Photos : {{ Request::path() == 'photos' ? "oui" :  "non" }}</p>
-    <p>Admin : {{ Request::path() == 'admin' ? "oui" :  "non" }}</p>
-
-
   </div>
     <!-- /.container -->
 
