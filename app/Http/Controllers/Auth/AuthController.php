@@ -51,18 +51,18 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'address_id' => 'max:255',
-            'section_id' => 'max:10',
-            'grade' => 'max:10',
+            'address_id' => 'max:255|default:null',
+            'section_id' => 'max:10|default:null',
+            'grade' => 'default:0',
             'firstname' => 'required|max:255',
             'lastname' => 'required|max:255',
-            'totem' => 'max:255',
+            'totem' => 'max:255|default:null',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'tel' => 'max:255',
-            'image_name' => 'max:255',
-            'image_path' => 'max:255',
-            'image_extension' => 'max:10',
+            'tel' => 'max:255|default:null',
+            'image_name' => 'max:255|default:null',
+            'image_path' => 'max:255|default:null',
+            'image_extension' => 'max:10|default:null',
         ]);
     }
 
@@ -93,8 +93,12 @@ class AuthController extends Controller
         // $reminder = App\Reminder::Create(['id' => 1,'user_id' => 1,'section_id' => 1,'content' => 'Nouveau site des Scouts SOON :P']);
 
         // create a section
-        
+
         // $section = App\Section::Create(['id' => 1,'user_id' => 1,'name' => 'Éclaireur','content' => 'Des 12 à 16 ans vis des aventures chocopops !']);
+
+        // create a non admin user
+
+        // $user1 = App\User::Create(['id' => 2,'address_id' => 1,'section_id' => 1,'grade' => 0,'firstname' => 'Régis', 'lastname' => 'Fontenelle', 'email' => 'test@test.com', 'password' => bcrypt('bonjour')]);
 
         return User::create([
             'address_id' => $data['address_id'],

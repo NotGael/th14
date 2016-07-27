@@ -21,11 +21,6 @@ class Section extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function photography()
-    {
-        return $this->belongsTo('App\Photography');
-    }
-
     public function users()
     {
         return $this->hasMany('App\User', 'section_id');

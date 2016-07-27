@@ -14,17 +14,17 @@ class CreateSectionsTable extends Migration
     {
         Schema::create('sections', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned()->index();
+            $table->integer('user_id')->unsigned()->index()->nullable()->default(null);
             $table->string('name');
             $table->longText('content');
-            $table->string('image_name')->unique();
-            $table->string('image_path');
-            $table->string('image_extension', 10);
+            $table->string('image_name')->unique()->nullable()->default(null);
+            $table->string('image_path')->nullable()->default(null);
+            $table->string('image_extension', 10)->nullable()->default(null);
             $table->timestamps();
         });
 
         Schema::table('users', function(Blueprint $table) {
-            $table->integer('section_id')->unsigned();
+            $table->integer('section_id')->unsigned()->index()->nullable()->default(null);;
         });
     }
 

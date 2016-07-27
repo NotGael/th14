@@ -23,7 +23,7 @@ class CreateAddressesTable extends Migration
         });
 
         Schema::table('users', function(Blueprint $table) {
-            $table->integer('address_id')->unsigned();
+            $table->integer('address_id')->unsigned()->nullable()->default(null);;
         });
     }
 
