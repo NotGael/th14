@@ -11,6 +11,9 @@ class Section extends Model
         'photography_id',
         'name',
         'content',
+        'image_name',
+        'image_path',
+        'image_extension',
     ];
 
     public function user()

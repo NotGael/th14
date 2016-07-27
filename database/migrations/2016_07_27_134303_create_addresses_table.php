@@ -1,9 +1,10 @@
 <?php
-//php artisan make:migration create_address_table --create=address
+//php artisan make:migration create_addresses_table --create=addresses
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateAddressTable extends Migration
+class CreateAddressesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,9 +13,8 @@ class CreateAddressTable extends Migration
      */
     public function up()
     {
-        Schema::create('address', function (Blueprint $table) {
+        Schema::create('addresses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('country');
             $table->integer('postalcode');
             $table->string('city');
             $table->string('street');
@@ -23,7 +23,7 @@ class CreateAddressTable extends Migration
         });
 
         Schema::table('users', function(Blueprint $table) {
-            $table->integer('address_id')->unsigned()->index();
+            $table->integer('address_id')->unsigned();
         });
     }
 
@@ -34,6 +34,6 @@ class CreateAddressTable extends Migration
      */
     public function down()
     {
-        Schema::drop('address');
+        Schema::drop('addresses');
     }
 }

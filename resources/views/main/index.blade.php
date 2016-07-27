@@ -8,10 +8,20 @@
     <div class="row">
         <h2>Rappels</h2>
         <ul>
-        @foreach($reminders as $reminder)
-            <li><a href="{{ url('/rappels') }}">{{ $reminder->content }}</a></li>
-        @endforeach
-        </ul>
+      @foreach($reminders as $reminder)
+        <li>
+          <a href="{{ url('/rappels') }}">{{ $reminder->content }}</a>
+          @if($reminder->user)
+              <p><em>
+                  {{ $reminder->user->totem }}
+                  @if($reminder->section)
+                      {{ $reminder->section->totem }}
+                  @endif
+              </em></p>
+          @endif
+        </li>
+      @endforeach
+      </ul>
     </div>
 
     <div class="row">
@@ -22,20 +32,21 @@
             <p>TODO<p>
             <p>TODO<p>
         </div>
-        <div class="col-md-6"><a href="{{ url('/articles') }}">
+        <div class="col-md-6">
             <h2>Dernier article</h2>
-
-                <h3>{{ $post->title }}</h3>
+            @if($post)
+                <a href="{{ url('/articles') }}"><h3>
+                    {{ $post->title }}
+                </h3></a>
+                <p> {{ $post->content }} </p>
                 @if($post->user)
-                    <p><em>
-                        {{ $post->user->name }}
+                    <p><em> {{ $post->user->totem }}
                         @if($post->section)
-                            {{ $post->section->name }}
+                            {{ $post->section->totem }}
                         @endif
                     </em></p>
                 @endif
-                <p>{{ $post->content }}</p>
-              </a>
+            @endif
         </div>
     </div>
 

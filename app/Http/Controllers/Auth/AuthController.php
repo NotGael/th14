@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Address;
+use App\Section;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -49,16 +51,18 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => 'required|max:255',
+            'address_id' => 'max:255',
+            'section_id' => 'max:10',
+            'grade' => 'max:10',
+            'firstname' => 'required|max:255',
+            'lastname' => 'required|max:255',
+            'totem' => 'max:255',
             'email' => 'required|email|max:255|unique:users',
             'password' => 'required|min:6|confirmed',
-            'section_id' => 'required',
-            'address_id' => 'required',
-            'country' => 'required',
-            'postalcode' => 'required',
-            'city' => 'required',
-            'street' => 'required',
-            'number' => 'required',
+            'tel' => 'max:255',
+            'image_name' => 'max:255',
+            'image_path' => 'max:255',
+            'image_extension' => 'max:10',
         ]);
     }
 
@@ -70,21 +74,41 @@ class AuthController extends Controller
      */
     protected function create(array $data)
     {
-        /*$address = App\Address::firstOrCreate([
-            'country' => $data['country'],
-            'postalcode' => $data['postalcode'],
-            'city' => $data['city'],
-            'street' => $data['street'],
-            'number' => $data['number'],
-        ]);*/
+        // php artisan tinker
+
+        // create an address
+
+        // $address = App\Address::firstOrCreate(['id' => 1,'street' => 'Rue de la Gare','number' => '8','postalcode' => 5630,'city' => 'Cerfontaine']);
+
+        // create a user
+
+        // $user = App\User::Create(['id' => 1,'address_id' => 1,'section_id' => 1,'grade' => 1,'firstname' => 'Gaël', 'lastname' => 'Fontenelle', 'totem' => 'Cirneco', 'email' => 'test@test.be', 'password' => bcrypt('bonjour')]);
+
+        // create an article
+
+        // $post = App\Post::Create(['id' => 1,'user_id' => 1,'section_id' => 1,'title' => 'Bienvenue sur le nouveau site des Scouts','slug' => 'bienvenue-sur-le-nouveau-site-des-scouts', 'content' => 'Bientôt disponible dans toutes les bonnes crêmerie. Voila voila fin du premier article blablabla.', 'online' => true]);
+
+        // create a reminder
+
+        // $reminder = App\Reminder::Create(['id' => 1,'user_id' => 1,'section_id' => 1,'content' => 'Nouveau site des Scouts SOON :P']);
+
+        // create a section
+        
+        // $section = App\Section::Create(['id' => 1,'user_id' => 1,'name' => 'Éclaireur','content' => 'Des 12 à 16 ans vis des aventures chocopops !']);
 
         return User::create([
-            'name' => $data['name'],
+            'address_id' => $data['address_id'],
+            'section_id' => $data['section_id'],
+            'grade' => $data['grade'],
+            'firstname' => $data['firstname'],
+            'lastname' => $data['lastname'],
+            'totem' => $data['totem'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
-            'section_id' => $data['section_id'],
-            'address_id' => $data['address_id'],
-            //'address_id' => $address->id(),
+            'tel' => $data['tel'],
+            'image_name' => $data['image_name'],
+            'image_path' => $data['image_path'],
+            'image_extension' => $data['image_extension'],
         ]);
     }
 }

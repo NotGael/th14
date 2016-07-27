@@ -17,6 +17,9 @@ class CreateSectionsTable extends Migration
             $table->integer('user_id')->unsigned()->index();
             $table->string('name');
             $table->longText('content');
+            $table->string('image_name')->unique();
+            $table->string('image_path');
+            $table->string('image_extension', 10);
             $table->timestamps();
         });
 
