@@ -33,7 +33,7 @@
                     <td> <a href="/th14/public/photographies/{{ $photography->id }}/edit">
                         <span class="glyphicon glyphicon-edit"
                             aria-hidden="true"></span></a></td>
-                    <td>{!! Form::model($photography, ['route' => ['photographies.destroy', $photography->id],
+                    <td>{!! Form::model($photography, ['route' => ['admin.photographies.destroy', $photography->id],
                         'method' => 'DELETE'
                     ])!!}
                     <div class="form-group">

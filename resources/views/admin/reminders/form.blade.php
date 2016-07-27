@@ -1,8 +1,8 @@
 <?php
 if($reminder->id) {
-    $options = ['method' => 'put', 'url' => action('RemindersController@update', $reminder)];
+    $options = ['method' => 'put', 'url' => action('Admin\RemindersController@update', $reminder)];
 } else {
-    $options = ['method' => 'post', 'url' => action('RemindersController@store', $reminder)];
+    $options = ['method' => 'post', 'url' => action('Admin\RemindersController@store', $reminder)];
 }
 ?>
 

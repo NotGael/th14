@@ -13,7 +13,7 @@
     </div>
     <br>
 
-    {!! Form::model($photography, ['route' => ['photographies.update', $photography->id],
+    {!! Form::model($photography, ['route' => ['admin.photographies.update', $photography->id],
     'method' => 'PUT',
     'class' => 'form',
     'files' => true]
@@ -64,7 +64,7 @@
 
     {!! Form::close() !!}
     <div>
-        {!! Form::model($photography, ['route' => ['photographies.destroy', $photography->id],
+        {!! Form::model($photography, ['route' => ['admin.photographies.destroy', $photography->id],
         'method' => 'DELETE',
         'class' => 'form',
         'files' => true]

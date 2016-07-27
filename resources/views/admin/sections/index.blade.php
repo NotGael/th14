@@ -7,7 +7,7 @@
 
     @foreach($sections as $section)
 
-            <a href="{{route('sections.edit', $section)}}" class="list-group-item">
+            <a href="{{route('admin.sections.edit', $section)}}" class="list-group-item">
                 <h2 class="list-group-item-heading">
                     {{ $section->name }}
                 </h2>

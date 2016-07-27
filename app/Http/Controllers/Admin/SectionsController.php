@@ -1,20 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
-
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
-Use App\Http\Requests\EditReminderRequest;
+Use App\Http\Requests\EditSectionRequest;
+use App\Photography;
+use App\Section;
+use App\User;
 
-use App\Reminder;
-
-class RemindersController extends Controller
+class SectionsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -23,8 +23,8 @@ class RemindersController extends Controller
      */
     public function index()
     {
-        $reminders = Reminder::get();
-        return view('reminders.index', compact('reminders'));
+        $sections = Section::get();
+        return view('admin.sections.index', compact('sections'));
     }
 
     /**
@@ -34,8 +34,10 @@ class RemindersController extends Controller
      */
     public function create()
     {
-        $reminder = new Reminder();
-        return view('reminders.create', compact('reminder'));
+        $section = new Section();
+        $users = User::lists('lastname', 'firstname', 'totem', 'id');
+        $photographies = Photography::lists('id', 'image_name', 'image_path', 'image_extension');
+        return view('admin.sections.create', compact('section', 'photographies', 'users'));
     }
 
     /**
@@ -46,8 +48,8 @@ class RemindersController extends Controller
      */
     public function store(Request $request)
     {
-        $reminder = Reminder::create($request->all());
-        return redirect(route('reminders.edit', $reminder));
+        $section = Section::create($request->all());
+        return redirect(route('admin.sections.edit', $section));
     }
 
     /**
@@ -58,8 +60,8 @@ class RemindersController extends Controller
      */
     public function show($id)
     {
-        $reminder = Reminder::where('id', $id)->firstOrFail();
-        return $reminder;
+        $section = Section::where('id', $id)->firstOrFail();
+        return $section;
     }
 
     /**
@@ -70,8 +72,11 @@ class RemindersController extends Controller
      */
     public function edit($id)
     {
-        $reminder = Reminder::findOrFail($id);
-        return view('reminders.edit', compact('reminder'));
+        $section = Section::findOrFail($id);
+        $users = User::lists('lastname', 'firstname', 'totem', 'id');
+        $users_section = User::lists('lastname', 'firstname')->where('section_id', $id)->all();
+
+        return view('admin.sections.edit', compact('section', 'users', 'users_section'));
     }
 
     /**
@@ -83,9 +88,9 @@ class RemindersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $reminder = Reminder::findOrFail($id);
-        $reminder->update($request->all());
-        return redirect(route('reminders.edit', $id))->with('success', 'Le reminder a bien été sauvegardé');
+        $section = Section::findOrFail($id);
+        $section->update($request->all());
+        return redirect(route('admin.sections.edit', $id))->with('success', 'Le reminder a bien été sauvegardé');
     }
 
     /**

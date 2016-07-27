@@ -24,7 +24,7 @@
     @endif
 
 
-    {!! Form::open(array('route' => 'photographies.store', 'class' => 'form', 'files' => true)) !!}
+    {!! Form::open(array('route' => 'admin.photographies.store', 'class' => 'form', 'files' => true)) !!}
 
      <!-- image name Form Input -->
      <div class="form-group">

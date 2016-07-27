@@ -1,8 +1,8 @@
 <?php
   if($post->id) {
-    $options = ['method' => 'put', 'url' => action('PostsController@update', $post)];
+    $options = ['method' => 'put', 'url' => action('Admin\PostsController@update', $post)];
   } else {
-    $options = ['method' => 'post', 'url' => action('PostsController@store', $post)];
+    $options = ['method' => 'post', 'url' => action('Admin\PostsController@store', $post)];
   }
 ?>
 

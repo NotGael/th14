@@ -8,7 +8,7 @@
             <p><em>{{ $post->section->name }}</em></p>
         @endif
         <p>{{ $post->content }}</p>
-        <p><a class="btn btn-primary" href="{{route('news.edit', $post)}}">Editer</a></p>
+        <p><a class="btn btn-primary" href="{{route('admin.news.edit', $post)}}">Editer</a></p>
     @endforeach
 
 @endsection

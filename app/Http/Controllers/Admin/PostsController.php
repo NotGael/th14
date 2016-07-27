@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
-
 use App\Post;
 use App\Section;
 use App\User;
@@ -20,7 +19,7 @@ class PostsController extends Controller
     public function index()
     {
         $posts = Post::with('section')->get();
-        return view('posts.index', compact('posts'));
+        return view('admin.posts.index', compact('posts'));
     }
 
     /**
@@ -32,7 +31,7 @@ class PostsController extends Controller
     {
         $post = new Post();
         $sections = Section::lists('name','id');
-        return view('posts.create', compact('post', 'sections'));
+        return view('admin.posts.create', compact('post', 'sections'));
     }
 
     /**
@@ -44,7 +43,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $post = Post::create($request->all());
-        return redirect(route('news.edit', $post));
+        return redirect(route('admin.news.edit', $post));
     }
 
     /**
@@ -69,7 +68,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $sections = Section::lists('name', 'id');
-        return view('posts.edit', compact('post', 'sections'));
+        return view('admin.posts.edit', compact('post', 'sections'));
     }
 
     /**
@@ -83,7 +82,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $post->update($request->all());
-        return redirect(route('news.edit', $id))->with('success', 'L\'article a bien été sauvegardé');
+        return redirect(route('admin.news.edit', $id))->with('success', 'L\'article a bien été sauvegardé');
     }
 
     /**

@@ -4,6 +4,6 @@
 
     <h1>Editer</h1>
 
-    @include('reminders.form')
+    @include('admin.reminders.form')
 
 @endsection

@@ -1,8 +1,8 @@
 <?php
 if($section->id) {
-    $options = ['method' => 'put', 'url' => action('SectionsController@update', $section)];
+    $options = ['method' => 'put', 'url' => action('Admin\SectionsController@update', $section)];
 } else {
-    $options = ['method' => 'post', 'url' => action('SectionsController@store', $section)];
+    $options = ['method' => 'post', 'url' => action('Admin\SectionsController@store', $section)];
 }
 $asUser = false;
 ?>
@@ -35,7 +35,11 @@ $asUser = false;
     <ul  class="list-group">
         @foreach($users_section as $user_section)
             <li class="list-group-item">
-                {{{ $user_section->name }}}
+              <p>
+                {{{ $user_section->firstname }}},
+                {{{ $user_section->lastname }}},
+                {{{ $user_section->totem }}},
+              </p>
             </li>
             <?php $asUser = true; ?>
         @endforeach

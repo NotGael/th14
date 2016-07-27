@@ -12,17 +12,16 @@
 */
 
 Route::auth();
-Route::get('/', 'HomeController@index');
+Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/rappels', 'HomeController@reminders');
 Route::get('/photos', 'HomeController@photographies');
 Route::get('/articles', 'HomeController@posts');
 
-Route::resource('reminders', 'RemindersController');
-Route::resource('sections', 'SectionsController');
-Route::resource('photographies', 'PhotographiesController');
-Route::resource('news', 'PostsController');
-
 Route::group(['namespace' => 'Admin', 'prefix' => 'admin'], function()
 {
     Route::get('/', 'AdminController@index');
+    Route::resource('reminders', 'RemindersController');
+    Route::resource('sections', 'SectionsController');
+    Route::resource('photographies', 'PhotographiesController');
+    Route::resource('news', 'PostsController');
 });

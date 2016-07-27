@@ -4,6 +4,6 @@
 
     <h1>Ajouter une nouvelle section</h1>
 
-    @include('sections.form')
+    @include('admin.sections.form')
 
 @endsection

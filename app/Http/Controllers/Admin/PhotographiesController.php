@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-
+use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\CreatePhotographyRequest;
 use App\Http\Requests\EditPhotographyRequest;
+use App\Photography;
 use Input;
 use Image;
-use App\Photography;
 use flash;
 use File;
 
@@ -23,7 +23,7 @@ class PhotographiesController extends Controller
     public function index()
     {
         $photographies = Photography::all();
-        return view('photographies.index', compact('photographies'));
+        return view('admin.photographies.index', compact('photographies'));
     }
 
     /**
@@ -33,7 +33,7 @@ class PhotographiesController extends Controller
      */
     public function create()
     {
-        return view('photographies.create');
+        return view('admin.photographies.create');
     }
 
     /**
@@ -56,7 +56,7 @@ class PhotographiesController extends Controller
 
         ]);
 
-        //define the image paths
+        //define the admin.image paths
 
         $destinationFolder = '/imgs/photographies/';
         $destinationThumbnail = '/imgs/photographies/thumbnails/';
@@ -109,7 +109,7 @@ class PhotographiesController extends Controller
 
         //flash()->success('Image Created!');
 
-        return redirect()->route('photographies.show', [$photography]);
+        return redirect()->route('admin.photographies.show', [$photography]);
 
     }
 
@@ -122,7 +122,7 @@ class PhotographiesController extends Controller
     public function show($id)
     {
         $photography = photography::findOrFail($id);
-        return view('photographies.show', compact('photography'));
+        return view('admin.photographies.show', compact('photography'));
     }
 
     /**
@@ -134,7 +134,7 @@ class PhotographiesController extends Controller
     public function edit($id)
     {
         $photography = Photography::findOrFail($id);
-        return view('photographies.edit', compact('photography'));
+        return view('admin.photographies.edit', compact('photography'));
     }
 
     /**
@@ -192,7 +192,7 @@ class PhotographiesController extends Controller
         $photography->save();
 
         //flash()->success('image edited!');
-        return redirect()->route('photographies.show', compact('photography'));
+        return redirect()->route('admin.photographies.show', compact('photography'));
         //return view('photographies.edit', compact('Photography'));
     }
 
@@ -222,7 +222,7 @@ class PhotographiesController extends Controller
 
         //flash()->success('image deleted!');
 
-        return redirect()->route('photographies.index');
+        return redirect()->route('admin.photographies.index');
 
     }
 
