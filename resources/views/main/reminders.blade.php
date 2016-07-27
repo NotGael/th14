@@ -12,7 +12,7 @@
         <p> {{ $reminder->content }} </p>
         @if($reminder->user)
             <p><em>
-                {{ $reminder->user->name }}
+                {{ $reminder->user->totem }}
                 @if($reminder->section)
                     {{ $reminder->section->name }}
                 @endif

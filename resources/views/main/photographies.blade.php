@@ -14,7 +14,7 @@
             $photography->image_extension }}">
             @if($photography->user)
                 <p><em>
-                    {{ $photography->user->name }}
+                    {{ $photography->user->totem }}
                     @if($photography->section)
                         {{ $photography->section->name }}
                     @endif

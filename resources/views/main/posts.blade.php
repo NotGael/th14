@@ -13,7 +13,7 @@
                     <p> {{ $post->content }} </p>
                     @if($post->user)
                         <p><em>
-                            {{ $post->user->name }}
+                            {{ $post->user->totem }}
                             @if($post->section)
                                 {{ $post->section->name }}
                             @endif

@@ -15,7 +15,7 @@
               <p><em>
                   {{ $reminder->user->totem }}
                   @if($reminder->section)
-                      {{ $reminder->section->totem }}
+                      {{ $reminder->section->name }}
                   @endif
               </em></p>
           @endif
@@ -42,7 +42,7 @@
                 @if($post->user)
                     <p><em> {{ $post->user->totem }}
                         @if($post->section)
-                            {{ $post->section->totem }}
+                            {{ $post->section->name }}
                         @endif
                     </em></p>
                 @endif
