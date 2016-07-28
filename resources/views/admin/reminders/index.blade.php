@@ -5,12 +5,12 @@
         <h1>Rappels</h1>
         <table class="table">
             <tr>
-                <th>Id </th>
-                <th>Auteur </th>
-                <th>Section </th>
-                <th>Contenu </th>
-                <th>Editer </th>
-                <th>Supprimer </th>
+                <th>Id</th>
+                <th>Auteur</th>
+                <th>Section</th>
+                <th>Contenu</th>
+                <th>Editer</th>
+                <th>Supprimer</th>
             </tr>
             @foreach($reminders as $reminder)
                 <tr>
