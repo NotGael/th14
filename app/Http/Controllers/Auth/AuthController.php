@@ -86,7 +86,7 @@ class AuthController extends Controller
 
         // create an article
 
-        // $post = App\Post::Create(['id' => 1,'user_id' => 1,'section_id' => 1,'title' => 'Bienvenue sur le nouveau site des Scouts','slug' => 'bienvenue-sur-le-nouveau-site-des-scouts', 'content' => 'Bientôt disponible dans toutes les bonnes crêmerie. Voila voila fin du premier article blablabla.', 'online' => true]);
+        // $post = App\Post::Create(['id' => 1,'user_id' => 1,'section_id' => 1,'title' => 'Bienvenue sur le nouveau site des Scouts','slug' => 'bienvenue', 'content' => 'Bientôt disponible dans toutes les bonnes crêmerie. Voila voila fin du premier article blablabla.', 'online' => true]);
 
         // create a reminder
 

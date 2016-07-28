@@ -2,24 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth\AuthController;
+use App\Post;
 
 class AdminController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('admin');
-    }
-
     /**
      * Show the application dashboard.
      *
@@ -28,5 +17,26 @@ class AdminController extends Controller
     public function index()
     {
         return view('admin.index');
+    }
+
+    public function post(Request $request, $id)
+    {
+
+      dd("test");
+      die();
+      $post = Post::findOrFail($id);
+      $post->update($request->all());
+      return redirect(route('admin.articles.index', $id))->with('success', 'L\'article a bien été sauvegardé');
+      //dd($post);
+      //die();
+      /*if($post->online)
+      {
+          $post->update(['online' => 0]);
+      }
+      else
+      {
+          $post->update(['online' => 1]);
+      }
+      return redirect(route('admin.articles.index', $id))->with('success', 'L\'article a bien été sauvegardé');*/
     }
 }

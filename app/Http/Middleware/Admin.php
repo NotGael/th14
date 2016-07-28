@@ -20,9 +20,7 @@ class Admin
             if(Auth::user()->grade == 1) {
                 return $next($request);
             }
-        } else {
-            //return redirect()->route('home');
-            return response('Unauthorized.', 401);
         }
+        return response('Unauthorized.', 401);
     }
 }

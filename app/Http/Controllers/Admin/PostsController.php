@@ -82,7 +82,7 @@ class PostsController extends Controller
     {
         $post = Post::findOrFail($id);
         $post->update($request->all());
-        return redirect(route('admin.news.edit', $id))->with('success', 'L\'article a bien été sauvegardé');
+        return redirect(route('admin.articles.index', $id))->with('success', 'L\'article a bien été sauvegardé');
     }
 
     /**
@@ -93,6 +93,7 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::destroy($id);
+        return redirect()->route('admin.articles.index');
     }
 }

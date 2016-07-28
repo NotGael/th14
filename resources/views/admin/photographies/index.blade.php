@@ -17,10 +17,11 @@
             <table class="table">
                 <tr>
                     <th>Id </th>
-                    <th>Name </th>
-                    <th>Thumbnail </th>
-                    <th>Edit </th>
-                    <th>Delete </th>
+                    <th>Nom </th>
+                    <th>Miniature </th>
+                    <th>Editer </th>
+                    <th>Supprimer </th>
+                    <th>Publier </th>
                   </tr>
     @foreach($photographies as $photography )
 
