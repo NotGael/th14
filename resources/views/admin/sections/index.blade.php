@@ -41,10 +41,15 @@
                         @endif
                     </td>
                     <td>
-
+                        <p><a class="btn btn-primary" href="{{route('admin.sections.edit', $section)}}">Editer</a></p>
                     </td>
                     <td>
+                        {!! Form::model($section, ['route' => ['admin.sections.destroy', $section->id], 'method' => 'DELETE'])!!}
+                            <div class="form-group">
 
+                                {!! Form::submit('Delete', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
+                            </div>
+                        {!! Form::close() !!}
                     </td>
                 </tr>
             @endforeach

@@ -101,6 +101,7 @@ class SectionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Section::destroy($id);
+        return redirect()->route('admin.sections.index');
     }
 }
