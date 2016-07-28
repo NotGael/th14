@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <!-- Table -->
+<div class="container">
     <table class="table">
         <tr>
             <th>Id </th>
@@ -66,4 +66,5 @@
         @endforeach
     </table>
     <p><a class="btn btn-primary" href="{{route('admin.articles.create')}}">Créer un nouvel article</a></p>
+  </div>
 @endsection

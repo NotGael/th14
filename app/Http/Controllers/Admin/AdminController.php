@@ -21,22 +21,10 @@ class AdminController extends Controller
 
     public function post(Request $request, $id)
     {
-
-      dd("test");
-      die();
-      $post = Post::findOrFail($id);
-      $post->update($request->all());
-      return redirect(route('admin.articles.index', $id))->with('success', 'L\'article a bien été sauvegardé');
-      //dd($post);
-      //die();
-      /*if($post->online)
-      {
-          $post->update(['online' => 0]);
-      }
-      else
-      {
-          $post->update(['online' => 1]);
-      }
-      return redirect(route('admin.articles.index', $id))->with('success', 'L\'article a bien été sauvegardé');*/
+        dd("test");
+        die();
+        $post = Post::findOrFail($id);
+        $post->update($request->all());
+        return redirect(route('admin.articles.index', $id))->with('success', 'L\'article a bien été sauvegardé');
     }
 }
