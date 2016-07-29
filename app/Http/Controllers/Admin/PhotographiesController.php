@@ -47,10 +47,10 @@ class PhotographiesController extends Controller
     {
         //create new instance of model to save from form
         $photography = Photography::create([
+            'online' => $request->get('online'),
             'image_name' => $request->get('image_name'),
             'image_extension' => $request->file('image')->getClientOriginalExtension(),
         ]);
-
         //define the admin.image paths
         $destinationFolder = '/imgs/photographies/';
         $destinationThumbnail = '/imgs/photographies/thumbnails/';
@@ -78,6 +78,7 @@ class PhotographiesController extends Controller
 
         // Process the uploaded image, add $model->attribute and folder name
 
+        return redirect()->route('admin.photos.index', [$photography]);
 
     }
 
@@ -89,6 +90,7 @@ class PhotographiesController extends Controller
      */
     public function show($id)
     {
+        $photography = Photography::findOrFail($id);
         return view('admin.photographies.show', compact('photography'));
     }
 
@@ -113,42 +115,31 @@ class PhotographiesController extends Controller
      */
     public function update(EditPhotographyRequest $request, $id)
     {
-      $photography = Photography::findOrFail($id);
+        $photography = Photography::findOrFail($id);
 
-      $photography->is_active = $request->get('is_active');
-      $photography->is_featured = $request->get('is_featured');
+        $photography->online = $request->get('online');
+        $this->formatCheckboxValue($photography);
 
-      $this->formatCheckboxValue($photography);
+        if (!empty(Input::file('image'))){
 
-      if (!empty(Input::file('image'))){
+            $destinationFolder = '/imgs/photographies/';
+            $destinationThumbnail = '/imgs/photographies/thumbnails/';
 
-          $destinationFolder = '/imgs/photographies/';
-          $destinationThumbnail = '/imgs/photographies/thumbnails/';
-
-          $file = Input::file('image');
-          $imageName = $photography->image_name;
-          $extension = $request->file('image')->getClientOriginalExtension();
-
-          //create instance of image from temp upload
-          $image = Image::make($file->getRealPath());
-
-          //save image with thumbnail
-          $image->save(public_path() . $destinationFolder . $imageName . '.' . $extension)
-              ->resize(60, 60)
-              // ->greyscale()
-              ->save(public_path() . $destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
-          $photography->image_extension = $extension;
-
-
-
-
+            $file = Input::file('image');
+            $imageName = $photography->image_name;
+            $extension = $request->file('image')->getClientOriginalExtension();
 
             //create instance of image from temp upload
+            $image = Image::make($file->getRealPath());
 
+            //save image with thumbnail
+            $image->save(public_path() . $destinationFolder . $imageName . '.' . $extension)
+                ->resize(60, 60)
+                ->save(public_path() . $destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
+            $photography->image_extension = $extension;
         }
-
         $photography->save();
-
+        return redirect()->route('admin.photos.index', compact('photography'));
     }
 
     /**
@@ -172,9 +163,11 @@ class PhotographiesController extends Controller
 
         Photography::destroy($id);
 
+        return redirect()->route('admin.photos.index');
     }
 
     public function formatCheckboxValue($myImage)
     {
+        $myImage->online = ($myImage->online == null) ? 0 : 1;
     }
 }
