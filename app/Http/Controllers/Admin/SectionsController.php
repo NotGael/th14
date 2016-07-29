@@ -10,9 +10,15 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 Use App\Http\Requests\EditSectionRequest;
+use App\Http\Requests\CreatePhotographyRequest;
+use App\Http\Requests\EditPhotographyRequest;
 use App\Photography;
 use App\Section;
 use App\User;
+use Input;
+use Image;
+use flash;
+use File;
 
 class SectionsController extends Controller
 {
@@ -83,9 +89,8 @@ class SectionsController extends Controller
     public function edit($id)
     {
         $section = Section::findOrFail($id);
-        $users = User::lists('lastname', 'firstname', 'totem', 'id');
-        $users_section = User::lists('lastname', 'firstname')->where('section_id', $id)->all();
-
+        $users = User::lists('totem', 'id');
+        $users_section = User::where('section_id', $id)->get();
         return view('admin.sections.edit', compact('section', 'users', 'users_section'));
     }
 
@@ -100,7 +105,7 @@ class SectionsController extends Controller
     {
         $section = Section::findOrFail($id);
         $section->update($request->all());
-        return redirect(route('admin.sections.edit', $id))->with('success', 'Le reminder a bien été sauvegardé');
+        return redirect(route('admin.sections.index', $id))->with('success', 'La section a bien été sauvegardé');
     }
 
     /**
@@ -113,5 +118,10 @@ class SectionsController extends Controller
     {
         Section::destroy($id);
         return redirect()->route('admin.sections.index');
+    }
+
+    public function formatCheckboxValue($myImage)
+    {
+        $myImage->online = ($myImage->online == null) ? 0 : 1;
     }
 }

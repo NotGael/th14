@@ -19,6 +19,7 @@ class CreatePhotographiesTable extends Migration
             $table->string('image_name')->unique();
             $table->string('image_path');
             $table->string('image_extension', 10);
+            $table->integer('image_type')->default(1);
             $table->timestamps();
         });
 

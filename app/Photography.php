@@ -17,6 +17,7 @@ class Photography extends Model
         'image_name',
         'image_path',
         'image_extension',
+        'image_type',
     ];
 
     public function user()

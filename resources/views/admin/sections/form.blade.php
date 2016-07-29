@@ -28,19 +28,6 @@ $asUser = false;
         {!! Form::label('image', 'Image') !!}
         {!! Form::file('image', null, array('required', 'class'=>'form-control')) !!}
     </div>
-    @if(!$section->photography)
-        <div class="form-group">
-            {!! Form::label('image name', 'Nom de l\'image') !!}
-            {!! Form::text('image_name', null, ['class' => 'form-control']) !!}
-        </div>
-    @else
-        <div class="row">
-        <img src="/th14/public/imgs/photographies/{{ $section->photography->image_name . '.' .
-            $section->photography->image_extension . '?'. 'time='. time() }}">
-        <br>
-        <b>Nom : {{ $section->photography->image_name }}</b>
-        </div>
-    @endif
     <div class="form-group">
         <label>
             @if($section->photography)
@@ -63,11 +50,13 @@ $asUser = false;
     <h2>Liste des animateur/animé section<h2>
     <ul  class="list-group">
         @foreach($users_section as $user_section)
-            <li class="list-group-item">
+            <li class="list-group-item small">
               <p>
-                {{{ $user_section->firstname }}},
-                {{{ $user_section->lastname }}},
-                {{{ $user_section->totem }}},
+                {{{ $user_section->firstname }}}
+                {{{ $user_section->lastname }}}
+                @if($user_section->totem)
+                - {{{ $user_section->totem }}}
+                @endif
               </p>
             </li>
             <?php $asUser = true; ?>
