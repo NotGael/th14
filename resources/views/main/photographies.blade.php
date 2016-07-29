@@ -10,8 +10,12 @@
     @foreach($photographies as $photography)
 
       <li>
-        <img src="/th14/public/imgs/photographies/thumbnails/{{ 'thumb-'. $photography->image_name . '.' .
-            $photography->image_extension }}">
+          @if($photography->image_type == 1)
+                  <img src="/th14/public/imgs/photographies/thumbnails/{{ 'thumb-'. $photography->image_name . '.' . $photography->image_extension . '?'. 'time='. time() }}">
+          @elseif($photography->image_type == 2)
+                  <img src="/th14/public/imgs/sections/thumbnails/{{ 'thumb-'. $photography->image_name . '.' . $photography->image_extension . '?'. 'time='. time() }}">
+          @endif
+
             @if($photography->user)
                 <p><em>
                     {{ $photography->user->totem }}

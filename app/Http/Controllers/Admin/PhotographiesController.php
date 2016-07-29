@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\CreatePhotographyRequest;
@@ -22,7 +23,7 @@ class PhotographiesController extends Controller
      */
     public function index()
     {
-        $photographies = Photography::all();
+        $photographies = Photography::get();
         return view('admin.photographies.index', compact('photographies'));
     }
 
@@ -53,6 +54,7 @@ class PhotographiesController extends Controller
         {
             $online = $request->get('online');
         }
+
         //create new instance of model to save from form
         $photography = Photography::create([
             'online' => $online,

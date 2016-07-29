@@ -11,6 +11,7 @@
                     <th>Id</th>
                     <th>Nom</th>
                     <th>Image</th>
+                    <th>Auteur</th>
                     <th>Editer </th>
                     <th>Supprimer</th>
                     <th>Publier</th>
@@ -24,9 +25,20 @@
                             <b>{{ $photography->image_name }}</b>
                         </td>
                         <td>
-                            <a href="{{route('admin.photos.show', $photography)}}">
-                                <img src="/th14/public/imgs/photographies/thumbnails/{{ 'thumb-'. $photography->image_name . '.' . $photography->image_extension . '?'. 'time='. time() }}">
-                            </a>
+                            @if($photography->image_type == 1)
+                                <a href="{{route('admin.photos.show', $photography)}}">
+                                    <img src="/th14/public/imgs/photographies/thumbnails/{{ 'thumb-'. $photography->image_name . '.' . $photography->image_extension . '?'. 'time='. time() }}">
+                                </a>
+                            @elseif($photography->image_type == 2)
+                                <a href="{{route('admin.photos.show', $photography)}}">
+                                    <img src="/th14/public/imgs/sections/thumbnails/{{ 'thumb-'. $photography->image_name . '.' . $photography->image_extension . '?'. 'time='. time() }}">
+                                </a>
+                            @endif
+                        </td>
+                        <td>
+                            @if($photography->user)
+                                <p>{{ $photography->user->totem }}</p>
+                            @endif
                         </td>
                         <td>
                             <p><a class="btn btn-primary" href="{{route('admin.photos.edit', $photography)}}">Editer</a></p>

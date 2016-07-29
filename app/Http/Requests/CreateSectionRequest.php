@@ -28,11 +28,6 @@ class CreateSectionRequest extends Request
             'photography_id' => 'numeric | max:10000 | exists:photographies,id',
             'name' => 'alpha | required | min:5 | unique:sections',
             'content' => 'alpha-num | required | min:50',
-            'slug' => 'alpha-num',
-            'image_name' => 'alpha_num | unique:photographies',
-            'image_type' => 'numeric',
-            'online' => 'boolean',
-            'image' => 'required | mimes:jpeg,jpg,bmp,png | max:10000',
         ];
     }
 }

@@ -10,7 +10,7 @@
                 <tr>
                     <th>Id</th>
                     <th>Titre</th>
-                    <th>Slug</th>
+                    <th>URL</th>
                     <th>Contenu</th>
                     <th>Auteur</th>
                     <th>Section</th>
@@ -49,7 +49,7 @@
                             {!! Form::model($post, ['route' => ['admin.articles.destroy', $post->id], 'method' => 'DELETE'])!!}
                                 <div class="form-group">
 
-                                    {!! Form::submit('Delete', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
+                                    {!! Form::submit('X', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
                                 </div>
                             {!! Form::close() !!}
                         </td>

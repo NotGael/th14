@@ -3,15 +3,11 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\CreateSectionRequest;
 Use App\Http\Requests\EditSectionRequest;
-use App\Http\Requests\EditPhotographyRequest;
 use App\Section;
 use App\User;
 use App\Photography;
@@ -41,9 +37,8 @@ class SectionsController extends Controller
     public function create()
     {
         $section = new Section();
-        $photography = new Photography();
         $users = User::lists('totem', 'id');
-        return view('admin.sections.create', compact('section', 'photographies', 'users'));
+        return view('admin.sections.create', compact('section', 'users'));
     }
 
     /**
@@ -62,12 +57,14 @@ class SectionsController extends Controller
         {
             $online = $request->get('online');
         }
-        if(!empty(Input::file('imageSession'))){
+        if(!empty(Input::file('imageSection'))){
+            $name = $request->get('name');
             $photography = Photography::create([
                 'online' => $online,
-                'image_name' => $request->get('name'),
-                'image_extension' => $request->file('imageSession')->getClientOriginalExtension(),
+                'image_name' => $name,
+                'image_extension' => $request->file('imageSection')->getClientOriginalExtension(),
                 'image_type' => 2,
+                'user_id' => Auth::user()->id,
             ]);
             //define the admin.image paths
             $destinationFolder = '/imgs/sections/';
@@ -81,10 +78,10 @@ class SectionsController extends Controller
             $photography->save();
 
             //parts of the image we will need
-            $file = $request->file('imageSession');
+            $file = $request->file('imageSection');
 
             $imageName = $photography->image_name;
-            $extension = $request->file('imageSession')->getClientOriginalExtension();
+            $extension = $request->file('imageSection')->getClientOriginalExtension();
 
             //create instance of image from temp upload
             $image = Image::make($file->getRealPath());
@@ -96,7 +93,7 @@ class SectionsController extends Controller
 
             // Process the uploaded image, add $model->attribute and folder name
 
-            $photography = Photography::where('name', $request->get('name'));
+            $photography = Photography::where('image_name', $name)->first();
 
             $section = Section::create([
                 'user_id' => $request->get('user_id'),
@@ -124,7 +121,7 @@ class SectionsController extends Controller
      */
     public function show($id)
     {
-        $section = Section::where('id', $id)->firstOrFail();
+        $section = Section::firstOrFail($id);
         return $section;
     }
 
@@ -149,7 +146,7 @@ class SectionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditSectionRequest $request, $id)
     {
         $section = Section::findOrFail($id);
         $section->update($request->all());

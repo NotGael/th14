@@ -1,8 +1,8 @@
 <?php
 if($section->id) {
-    $options = ['method' => 'put', 'url' => action('Admin\SectionsController@update', $section)];
+    $options = ['method' => 'put', 'url' => action('Admin\SectionsController@update', $section), 'class' => 'form', 'files' => true];
 } else {
-    $options = ['method' => 'post', 'url' => action('Admin\SectionsController@store', $section)];
+    $options = ['method' => 'post', 'url' => action('Admin\SectionsController@store', $section), 'class' => 'form', 'files' => true];
 }
 $asUser = false;
 ?>
@@ -11,7 +11,6 @@ $asUser = false;
 @include('flash')
 
 {!! Form::model($section, $options) !!}
-
     <div class="form-group">
         {!! Form::label('name', 'Nom') !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
@@ -25,8 +24,8 @@ $asUser = false;
       {!! Form::select('user_id', $users, null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group">
-        {!! Form::label('imageSession', 'Image') !!}
-        {!! Form::file('imageSession', null, array('required', 'class'=>'form-control')) !!}
+        {!! Form::label('imageSection', 'Image') !!}
+        {!! Form::file('imageSection', null, array('required', 'class'=>'form-control')) !!}
     </div>
     <div class="form-group">
         <label>
@@ -42,8 +41,6 @@ $asUser = false;
            {!! Form::submit('Submit', array('class'=>'btn btn-primary')) !!}
         </div>
     </div>
-
-
 {!! Form::close() !!}
 
 @if(isset($users_section))
@@ -67,10 +64,10 @@ $asUser = false;
           </li>
         @endif
     </ul>
-
+@endif
 
 {!! Form::model($section, $options) !!}
-
+    <h2>TODO</h2>
     <div class="form-group">
         {!! Form::label('user_id', 'Ajouter un utilisateur à la section') !!}
           {!! Form::select('user_id', $users, null, ['class' => 'form-control']) !!}
@@ -79,7 +76,4 @@ $asUser = false;
     <div class="form-group">
         {!! Form::submit('Submit', array('class'=>'btn btn-primary')) !!}
     </div>
-
 {!! Form::close() !!}
-
-@endif

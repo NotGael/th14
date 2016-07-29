@@ -13,7 +13,7 @@ class EditSectionRequest extends Request
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,10 +24,9 @@ class EditSectionRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'num | required | max:10000 | exists:users,id',
-            'photography_id' => 'num | max:10000 | exists:photographies,id',
-            'name' => 'required|min:5',
-            'content' => 'alpha-num | required | min:50',
+            'photography_id' => 'numeric | max:10000 | exists:photographies,id',
+            'name' => 'min:5',
+            'content' => 'min:50',
             'slug' => 'alpha-num'
         ];
     }

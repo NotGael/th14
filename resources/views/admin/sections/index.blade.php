@@ -11,9 +11,7 @@
                     <th>Id </th>
                     <th>Nom </th>
                     <th>Contenu</th>
-                    <th>Nom de l'image</th>
-                    <th>Path de l'image</th>
-                    <th>Extension de l'image</th>
+                    <th>Image</th>
                     <th>Animateur responsable</th>
                     <th>Editer</th>
                     <th>Supprimer</th>
@@ -30,13 +28,11 @@
                             <p>{{ $section->content }}</p>
                         </td>
                         <td>
-                            <p>{{ $section->image_name }}</p>
-                        </td>
-                        <td>
-                            <p>{{ $section->image_path }}</p>
-                        </td>
-                        <td>
-                            <p>{{ $section->image_extension }}</p>
+                            @if($section->photography)
+                                <a href="{{route('admin.photos.show', $section->photography)}}">
+                                    <img src="/th14/public/imgs/sections/thumbnails/{{ 'thumb-'. $section->photography->image_name . '.' . $section->photography->image_extension . '?'. 'time='. time() }}">
+                                </a>
+                            @endif
                         </td>
                         <td>
                             @if($section->user)

@@ -27,7 +27,7 @@ class CreatePhotographyRequest extends Request
             'image_name' => 'alpha_num | required | unique:photographies',
             'image_type' => 'num',
             'online' => 'boolean',
-            'image' => 'required | mimes:jpeg,jpg,bmp,png | max:10000',
+            'image' => 'required | max:10000',
         ];
     }
 }

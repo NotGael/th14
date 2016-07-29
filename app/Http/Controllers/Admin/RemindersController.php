@@ -46,7 +46,7 @@ class RemindersController extends Controller
     public function store(Request $request)
     {
         $reminder = Reminder::create($request->all());
-        return redirect(route('admin.rappels.edit', $reminder));
+        return redirect(route('admin.rappels.index', $reminder));
     }
 
     /**
@@ -84,7 +84,7 @@ class RemindersController extends Controller
     {
         $reminder = Reminder::findOrFail($id);
         $reminder->update($request->all());
-        return redirect(route('admin.rappels.edit', $id))->with('success', 'Le reminder a bien été sauvegardé');
+        return redirect(route('admin.rappels.index', $id))->with('success', 'Le reminder a bien été sauvegardé');
     }
 
     /**

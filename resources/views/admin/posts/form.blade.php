@@ -33,10 +33,7 @@
 
     <div class="form-group">
         <label>
-            @if($post->id)
-                {!! Form::checkbox('online', $post->online) !!}
-                En ligne ?
-            @else
+            @if(!$post->id)
                 {!! Form::checkbox('online') !!}
                 En ligne ?
             @endif
