@@ -14,6 +14,7 @@ class User extends Authenticatable
     protected $fillable = [
         'address_id',
         'section_id',
+        'photography_id',
         'grade',
         'firstname',
         'lastname',
@@ -21,9 +22,6 @@ class User extends Authenticatable
         'email',
         'password',
         'tel',
-        'image_name',
-        'image_path',
-        'image_extension',
     ];
 
     /**
@@ -45,9 +43,9 @@ class User extends Authenticatable
         return $this->belongsTo('App\Section');
     }
 
-    public function photographies()
+    public function photography()
     {
-        return $this->hasMany('App\Photography', 'user_id');
+        return $this->belongsTo('App\Photography');
     }
 
     public function reminders()

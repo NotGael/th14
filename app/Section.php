@@ -11,14 +11,16 @@ class Section extends Model
         'photography_id',
         'name',
         'content',
-        'image_name',
-        'image_path',
-        'image_extension',
     ];
 
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function photography()
+    {
+        return $this->belongsTo('App\Photography');
     }
 
     public function users()
@@ -31,9 +33,8 @@ class Section extends Model
         return $this->hasMany('App\Reminder', 'section_id');
     }
 
-    public function photographies()
+    public function posts()
     {
-        return $this->hasMany('App\Photography', 'section_id');
+        return $this->hasMany('App\Post', 'section_id');
     }
-
 }

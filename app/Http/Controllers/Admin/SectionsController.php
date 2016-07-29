@@ -48,8 +48,18 @@ class SectionsController extends Controller
      */
     public function store(Request $request)
     {
-        $section = Section::create($request->all());
-        return redirect(route('admin.sections.edit', $section));
+        $photography = Photography::create([
+            'online' => $request->get('online'),
+            'image_name' => $request->get('image_name'),
+            'image_extension' => $request->file('image')->getClientOriginalExtension(),
+        ]);
+        $section = Section::create([
+            'user_id' => $request->get('user_id'),
+            'photography_id' => $photography->id,
+            'name' => $request->get('name'),
+            'content' => $request->get('content'),
+        ]);
+        return redirect(route('admin.sections.index', $section));
     }
 
     /**

@@ -15,7 +15,6 @@
         {!! Form::label('image', 'Image') !!}
         {!! Form::file('image', null, array('required', 'class'=>'form-control')) !!}
     </div>
-
     <div class="form-group">
         <label>
             @if($photography->id)

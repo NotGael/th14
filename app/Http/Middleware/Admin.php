@@ -17,7 +17,7 @@ class Admin
     public function handle($request, Closure $next)
     {
         if(Auth::check()) {
-            if(Auth::user()->grade == 1) {
+            if(Auth::user()->grade >= 2) {
                 return $next($request);
             }
         }

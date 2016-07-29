@@ -13,15 +13,10 @@ class Photography extends Model
     */
     protected $fillable = [
         'user_id',
-        'section_id',
-        'is_active',
-        'is_featured',
+        'online',
         'image_name',
         'image_path',
         'image_extension',
-        'mobile_image_name',
-        'mobile_image_path',
-        'mobile_extension',
     ];
 
     public function user()
@@ -34,5 +29,8 @@ class Photography extends Model
         return $this->belongsTo('App\Section');
     }
 
-
+    public function post()
+    {
+        return $this->belongsTo('App\Post');
+    }
 }

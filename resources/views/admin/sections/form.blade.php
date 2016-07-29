@@ -25,8 +25,37 @@ $asUser = false;
       {!! Form::select('user_id', $users, null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group">
-       {!! Form::submit('Submit', array('class'=>'btn btn-primary')) !!}
+        {!! Form::label('image', 'Image') !!}
+        {!! Form::file('image', null, array('required', 'class'=>'form-control')) !!}
     </div>
+    @if(!$section->photography)
+        <div class="form-group">
+            {!! Form::label('image name', 'Nom de l\'image') !!}
+            {!! Form::text('image_name', null, ['class' => 'form-control']) !!}
+        </div>
+    @else
+        <div class="row">
+        <img src="/th14/public/imgs/photographies/{{ $section->photography->image_name . '.' .
+            $section->photography->image_extension . '?'. 'time='. time() }}">
+        <br>
+        <b>Nom : {{ $section->photography->image_name }}</b>
+        </div>
+    @endif
+    <div class="form-group">
+        <label>
+            @if($section->photography)
+                {!! Form::checkbox('online', $section->photography->online) !!}
+                En ligne ?
+            @else
+                {!! Form::checkbox('online') !!}
+                En ligne ?
+            @endif
+        </label>
+        <div class="form-group">
+           {!! Form::submit('Submit', array('class'=>'btn btn-primary')) !!}
+        </div>
+    </div>
+
 
 {!! Form::close() !!}
 

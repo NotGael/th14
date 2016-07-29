@@ -17,14 +17,11 @@ class CreateSectionsTable extends Migration
             $table->integer('user_id')->unsigned()->index()->nullable()->default(null);
             $table->string('name');
             $table->longText('content');
-            $table->string('image_name')->unique()->nullable()->default(null);
-            $table->string('image_path')->nullable()->default(null);
-            $table->string('image_extension', 10)->nullable()->default(null);
             $table->timestamps();
         });
 
         Schema::table('users', function(Blueprint $table) {
-            $table->integer('section_id')->unsigned()->index()->nullable()->default(null);;
+            $table->integer('section_id')->unsigned()->index()->nullable()->default(null);
         });
     }
 

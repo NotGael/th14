@@ -14,6 +14,7 @@ class Post extends Model
     protected $fillable = [
         'user_id',
         'section_id',
+        'photography_id',
         'title',
         'slug',
         'content',
@@ -28,6 +29,11 @@ class Post extends Model
     public function section()
     {
         return $this->belongsTo('App\Section');
+    }
+
+    public function photography_id()
+    {
+        return $this->belongsTo('App\Photography');
     }
 
     public function scopePublished($query) {

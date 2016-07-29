@@ -16,14 +16,14 @@ class Reminder extends Model
         'section_id',
         'content',
     ];
+    
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 
     public function section()
     {
         return $this->belongsTo('App\Section');
-    }
-
-    public function user()
-    {
-        return $this->belongsTo('App\User');
     }
 }
