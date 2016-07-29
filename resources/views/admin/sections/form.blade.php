@@ -25,8 +25,8 @@ $asUser = false;
       {!! Form::select('user_id', $users, null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group">
-        {!! Form::label('image', 'Image') !!}
-        {!! Form::file('image', null, array('required', 'class'=>'form-control')) !!}
+        {!! Form::label('imageSession', 'Image') !!}
+        {!! Form::file('imageSession', null, array('required', 'class'=>'form-control')) !!}
     </div>
     <div class="form-group">
         <label>

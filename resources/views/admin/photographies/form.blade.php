@@ -17,10 +17,7 @@
     </div>
     <div class="form-group">
         <label>
-            @if($photography->id)
-                {!! Form::checkbox('online', $photography->online) !!}
-                En ligne ?
-            @else
+            @if(!$photography->id)
                 {!! Form::checkbox('online') !!}
                 En ligne ?
             @endif

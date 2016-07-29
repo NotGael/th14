@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Post;
@@ -42,8 +43,23 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $post = Post::create($request->all());
-        return redirect(route('admin.articles.edit', $post));
+        if($request->get('online') == null)
+        {
+            $online = false;
+        }
+        else
+        {
+            $online = $request->get('online');
+        }
+        $post = Post::create([
+            'user_id' => Auth::user()->id,
+            'section_id' => $request->get('section_id'),
+            'title' => $request->get('title'),
+            'slug' => $request->get('slug'),
+            'content' => $request->get('content'),
+            'online' => $online,
+        ]);
+        return redirect(route('admin.articles.index', $post));
     }
 
     /**

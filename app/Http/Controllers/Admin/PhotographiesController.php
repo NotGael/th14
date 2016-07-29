@@ -45,11 +45,21 @@ class PhotographiesController extends Controller
      */
     public function store(CreatePhotographyRequest $request)
     {
+        if($request->get('online') == null)
+        {
+            $online = false;
+        }
+        else
+        {
+            $online = $request->get('online');
+        }
         //create new instance of model to save from form
         $photography = Photography::create([
-            'online' => $request->get('online'),
+            'online' => $online,
             'image_name' => $request->get('image_name'),
             'image_extension' => $request->file('image')->getClientOriginalExtension(),
+            'image_type' => 1,
+            'user_id' => Auth::user()->id,
         ]);
         //define the admin.image paths
         $destinationFolder = '/imgs/photographies/';
@@ -118,7 +128,6 @@ class PhotographiesController extends Controller
         $photography = Photography::findOrFail($id);
 
         $photography->online = $request->get('online');
-        $this->formatCheckboxValue($photography);
 
         if (!empty(Input::file('image'))){
 

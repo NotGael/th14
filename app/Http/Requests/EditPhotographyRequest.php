@@ -25,7 +25,7 @@ class EditPhotographyRequest extends Request
     {
         return [
             'online' => 'boolean',
-            'image' => 'mimes:jpeg,jpg,bmp,png | max:1000',
+            'image' => 'mimes:jpeg,jpg,bmp,png | max:10000',
         ];
     }
 }

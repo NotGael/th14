@@ -9,12 +9,12 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
+use App\Http\Requests\CreateSectionRequest;
 Use App\Http\Requests\EditSectionRequest;
-use App\Http\Requests\CreatePhotographyRequest;
 use App\Http\Requests\EditPhotographyRequest;
-use App\Photography;
 use App\Section;
 use App\User;
+use App\Photography;
 use Input;
 use Image;
 use flash;
@@ -41,8 +41,8 @@ class SectionsController extends Controller
     public function create()
     {
         $section = new Section();
-        $users = User::lists('lastname', 'firstname', 'totem', 'id');
-        $photographies = Photography::lists('id', 'image_name', 'image_path', 'image_extension');
+        $photography = new Photography();
+        $users = User::lists('totem', 'id');
         return view('admin.sections.create', compact('section', 'photographies', 'users'));
     }
 
@@ -52,19 +52,67 @@ class SectionsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateSectionRequest $request)
     {
-        $photography = Photography::create([
-            'online' => $request->get('online'),
-            'image_name' => $request->get('image_name'),
-            'image_extension' => $request->file('image')->getClientOriginalExtension(),
-        ]);
-        $section = Section::create([
-            'user_id' => $request->get('user_id'),
-            'photography_id' => $photography->id,
-            'name' => $request->get('name'),
-            'content' => $request->get('content'),
-        ]);
+        if($request->get('online') == null)
+        {
+            $online = false;
+        }
+        else
+        {
+            $online = $request->get('online');
+        }
+        if(!empty(Input::file('imageSession'))){
+            $photography = Photography::create([
+                'online' => $online,
+                'image_name' => $request->get('name'),
+                'image_extension' => $request->file('imageSession')->getClientOriginalExtension(),
+                'image_type' => 2,
+            ]);
+            //define the admin.image paths
+            $destinationFolder = '/imgs/sections/';
+            $destinationThumbnail = '/imgs/sections/thumbnails/';
+
+            //assign the image paths to new model, so we can save them to DB
+            $photography->image_path = $destinationFolder;
+
+            // format checkbox values and save model
+            $this->formatCheckboxValue($photography);
+            $photography->save();
+
+            //parts of the image we will need
+            $file = $request->file('imageSession');
+
+            $imageName = $photography->image_name;
+            $extension = $request->file('imageSession')->getClientOriginalExtension();
+
+            //create instance of image from temp upload
+            $image = Image::make($file->getRealPath());
+
+            //save image with thumbnail
+            $image->save(public_path() . $destinationFolder . $imageName . '.' . $extension)
+                ->resize(60, 60)
+                ->save(public_path() . $destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
+
+            // Process the uploaded image, add $model->attribute and folder name
+
+            $photography = Photography::where('name', $request->get('name'));
+
+            $section = Section::create([
+                'user_id' => $request->get('user_id'),
+                'name' => $request->get('name'),
+                'content' => $request->get('content'),
+                'photography_id' => $photography->id,
+            ]);
+        }
+        else
+        {
+            $section = Section::create([
+                'user_id' => $request->get('user_id'),
+                'name' => $request->get('name'),
+                'content' => $request->get('content'),
+            ]);
+        }
         return redirect(route('admin.sections.index', $section));
     }
 

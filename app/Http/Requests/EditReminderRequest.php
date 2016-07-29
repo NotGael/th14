@@ -24,6 +24,7 @@ class EditReminderRequest extends Request
     public function rules()
     {
         return [
+            'user_id' => 'num | required | max:10000 | exists:users,id',
             'content' => 'required|min:10'
         ];
     }

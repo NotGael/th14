@@ -24,10 +24,11 @@ class EditSectionRequest extends Request
     public function rules()
     {
         return [
+            'user_id' => 'num | required | max:10000 | exists:users,id',
+            'photography_id' => 'num | max:10000 | exists:photographies,id',
             'name' => 'required|min:5',
             'content' => 'alpha-num | required | min:50',
-            'image' => 'required | mimes:jpeg,jpg,bmp,png | max:10000',
-            'user_id' => 'num | required | max:10000 | exists:users,id',
+            'slug' => 'alpha-num'
         ];
     }
 }
