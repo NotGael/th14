@@ -13,7 +13,7 @@ $asUser = false;
 {!! Form::model($section, $options) !!}
 
     <div class="form-group">
-        {!! Form::label('name', 'Name') !!}
+        {!! Form::label('name', 'Nom') !!}
         {!! Form::text('name', null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group">
@@ -21,7 +21,7 @@ $asUser = false;
         {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group">
-      {!! Form::label('user_id', 'Animateur Responsable') !!}
+      {!! Form::label('user_id', 'Animateur responsable') !!}
       {!! Form::select('user_id', $users, null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group">

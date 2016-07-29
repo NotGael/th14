@@ -16,8 +16,7 @@ class CreatePhotographiesTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned()->index();
             $table->integer('section_id')->unsigned()->index()->nullable()->default(null);
-            $table->boolean('is_active')->default(false);
-            $table->boolean('is_featured')->default(false);
+            $table->boolean('online')->default(false);
             $table->string('image_name')->unique();
             $table->string('image_path');
             $table->string('image_extension', 10);

@@ -22,7 +22,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('section_id', 'Catégorie') !!}
+        {!! Form::label('section_id', 'Section') !!}
         {!! Form::select('section_id', $sections, null, ['class' => 'form-control']) !!}
     </div>
 
@@ -33,8 +33,13 @@
 
     <div class="form-group">
         <label>
-            {!! Form::checkbox('online', 1) !!}
-            En ligne ?
+            @if($post->id)
+                {!! Form::checkbox('online', $post->online) !!}
+                En ligne ?
+            @else
+                {!! Form::checkbox('online') !!}
+                En ligne ?
+            @endif
         </label>
     </div>
 

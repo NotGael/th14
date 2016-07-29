@@ -12,10 +12,10 @@ if($reminder->id) {
 {!! Form::model($reminder, $options) !!}
 
     <div class="form-group">
-        {!! Form::label('content', 'Content') !!}
+        {!! Form::label('content', 'Contenu') !!}
         {!! Form::text('content', null, ['class' => 'form-control']) !!}
     </div>
 
-    <button class="btn btn-primary">Envoyer</button>
+    <button class="btn btn-success">Envoyer</button>
 
 {!! Form::close() !!}

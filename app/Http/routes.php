@@ -24,4 +24,5 @@ Route::group(['middleware' => ['auth', 'admin'], 'namespace' => 'Admin', 'prefix
     Route::resource('sections', 'SectionsController');
     Route::resource('photos', 'PhotographiesController');
     Route::resource('articles', 'PostsController');
+    Route::resource('users', 'UsersController');
 });

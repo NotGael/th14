@@ -57,7 +57,7 @@ class RemindersController extends Controller
      */
     public function show($id)
     {
-        $reminder = Reminder::where('id', $id)->firstOrFail();
+        $reminder = Reminder::findOrFail($id);
         return $reminder;
     }
 

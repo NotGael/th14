@@ -25,11 +25,8 @@ class CreatePhotographyRequest extends Request
     {
         return [
             'image_name' => 'alpha_num | required | unique:photographies',
-            'mobile_image_name' => 'alpha_num | required | unique:photographies',
-            'is_active' => 'boolean',
-            'is_featured' => 'boolean',
+            'online' => 'boolean',
             'image' => 'required | mimes:jpeg,jpg,bmp,png | max:10000',
-            'mobile_image' => 'required | mimes:jpeg,jpg,bmp,png | max:10000'
         ];
     }
 }

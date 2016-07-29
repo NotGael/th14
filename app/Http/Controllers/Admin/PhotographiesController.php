@@ -33,7 +33,8 @@ class PhotographiesController extends Controller
      */
     public function create()
     {
-        return view('admin.photographies.create');
+        $photography = new Photography();
+        return view('admin.photographies.create', compact('photography'));
     }
 
     /**
@@ -45,71 +46,38 @@ class PhotographiesController extends Controller
     public function store(CreatePhotographyRequest $request)
     {
         //create new instance of model to save from form
-
-        $photography = new Photography([
+        $photography = Photography::create([
             'image_name' => $request->get('image_name'),
             'image_extension' => $request->file('image')->getClientOriginalExtension(),
-            'mobile_image_name' => $request->get('mobile_image_name'),
-            'mobile_extension' => $request->file('mobile_image')->getClientOriginalExtension(),
-            'is_active' => $request->get('is_active'),
-            'is_featured' => $request->get('is_featured')
-
         ]);
 
         //define the admin.image paths
-
         $destinationFolder = '/imgs/photographies/';
         $destinationThumbnail = '/imgs/photographies/thumbnails/';
-        $destinationMobile = '/imgs/photographies/mobile/';
 
         //assign the image paths to new model, so we can save them to DB
-
         $photography->image_path = $destinationFolder;
-        $photography->mobile_image_path = $destinationMobile;
 
         // format checkbox values and save model
-
         $this->formatCheckboxValue($photography);
         $photography->save();
 
         //parts of the image we will need
-
-        //$file = Input::file('image');
         $file = $request->file('image');
-
 
         $imageName = $photography->image_name;
         $extension = $request->file('image')->getClientOriginalExtension();
 
         //create instance of image from temp upload
-
         $image = Image::make($file->getRealPath());
 
         //save image with thumbnail
-
         $image->save(public_path() . $destinationFolder . $imageName . '.' . $extension)
             ->resize(60, 60)
-            // ->greyscale()
             ->save(public_path() . $destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
-
-        // now for mobile
-
-        //$mobileFile = Input::file('mobile_image');
-        $mobileFile = $request->file('mobile_image');
-
-        $mobileImageName = $photography->mobile_image_name;
-        $mobileExtension = $request->file('mobile_image')->getClientOriginalExtension();
-
-        //create instance of image from temp upload
-        $mobileImage = Image::make($mobileFile->getRealPath());
-        $mobileImage->save(public_path() . $destinationMobile . $mobileImageName . '.' . $mobileExtension);
-
 
         // Process the uploaded image, add $model->attribute and folder name
 
-        //flash()->success('Image Created!');
-
-        return redirect()->route('admin.photographies.show', [$photography]);
 
     }
 
@@ -121,7 +89,6 @@ class PhotographiesController extends Controller
      */
     public function show($id)
     {
-        $photography = photography::findOrFail($id);
         return view('admin.photographies.show', compact('photography'));
     }
 
@@ -172,28 +139,16 @@ class PhotographiesController extends Controller
               ->save(public_path() . $destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
           $photography->image_extension = $extension;
 
-        }
 
-        if (!empty(Input::file('mobile_image'))) {
 
-            $destinationMobile = '/imgs/photographies/mobile/';
-            $mobileFile = Input::file('mobile_image');
 
-            $mobileImageName = $photography->mobile_image_name;
-            $mobileExtension = $request->file('mobile_image')->getClientOriginalExtension();
 
             //create instance of image from temp upload
-            $mobileImage = Image::make($mobileFile->getRealPath());
-            $mobileImage->save(public_path() . $destinationMobile . $mobileImageName . '.' . $mobileExtension);
-            $photography->mobile_extension = $mobileExtension;
 
         }
 
         $photography->save();
 
-        //flash()->success('image edited!');
-        return redirect()->route('admin.photographies.show', compact('photography'));
-        //return view('photographies.edit', compact('Photography'));
     }
 
     /**
@@ -211,25 +166,15 @@ class PhotographiesController extends Controller
             $photography->image_name . '.' .
             $photography->image_extension);
 
-        File::delete(public_path($photography->mobile_image_path).
-            $photography->mobile_image_name . '.' .
-            $photography->mobile_extension);
         File::delete(public_path($thumbPath). 'thumb-' .
             $photography->image_name . '.' .
             $photography->image_extension);
 
         Photography::destroy($id);
 
-        //flash()->success('image deleted!');
-
-        return redirect()->route('admin.photographies.index');
-
     }
 
     public function formatCheckboxValue($myImage)
     {
-
-        $myImage->is_active = ($myImage->is_active == null) ? 0 : 1;
-        $myImage->is_featured = ($myImage->is_featured == null) ? 0 : 1;
     }
 }

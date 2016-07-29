@@ -1,9 +1,6 @@
 @extends('layouts.app')
 
 @section('content')
-
-    <h1>Ajouter un nouveau reminder</h1>
-
+    <h1>Nouveau rappel</h1>
     @include('admin.reminders.form')
-
 @endsection

@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
-use App\Post;
-use App\Section;
 use App\User;
+use App\Section;
 
-class PostsController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,8 +17,8 @@ class PostsController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('section')->get();
-        return view('admin.posts.index', compact('posts'));
+        $users = User::get();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -29,9 +28,7 @@ class PostsController extends Controller
      */
     public function create()
     {
-        $post = new Post();
-        $sections = Section::lists('name','id');
-        return view('admin.posts.create', compact('post', 'sections'));
+        //
     }
 
     /**
@@ -42,8 +39,7 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $post = Post::create($request->all());
-        return redirect(route('admin.articles.edit', $post));
+        //
     }
 
     /**
@@ -54,8 +50,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::published()->where('id', $id)->firstOrFail();
-        return $post;
+        //
     }
 
     /**
@@ -66,9 +61,10 @@ class PostsController extends Controller
      */
     public function edit($id)
     {
-        $post = Post::findOrFail($id);
+        $user = User::findOrFail($id);
         $sections = Section::lists('name', 'id');
-        return view('admin.posts.edit', compact('post', 'sections'));
+        return view('admin.users.edit', compact('user', 'sections'));
+
     }
 
     /**
@@ -80,9 +76,9 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::findOrFail($id);
-        $post->update($request->all());
-        return redirect(route('admin.articles.index', $id))->with('success', 'L\'article a bien été sauvegardé');
+        $user = User::findOrFail($id);
+        $user->update($request->all());
+        return redirect(route('admin.users.index', $id))->with('success', 'L\'utilisateur a bien été sauvegardé');
     }
 
     /**
@@ -93,7 +89,6 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        Post::destroy($id);
-        return redirect()->route('admin.articles.index');
+        //
     }
 }

@@ -24,10 +24,8 @@ class EditPhotographyRequest extends Request
     public function rules()
     {
         return [
-            'is_active' => 'boolean',
-            'is_featured' => 'boolean',
+            'online' => 'boolean',
             'image' => 'mimes:jpeg,jpg,bmp,png | max:1000',
-            'mobile_image' => 'mimes:jpeg,jpg,bmp,png | max:1000'
         ];
     }
 }

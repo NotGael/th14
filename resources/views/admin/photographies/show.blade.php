@@ -21,13 +21,4 @@
 
     </div>
 
-    <div>
-
-        {{ $photography->mobile_image_name }} - mobile :  <br>
-
-        <img src="/th14/public/imgs/photographies/mobile/{{ $photography->mobile_image_name . '.' .
-            $photography->mobile_extension . '?'. 'time='. time() }}">
-
-    </div>
-
 @endsection
