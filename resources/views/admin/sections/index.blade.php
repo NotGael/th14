@@ -1,3 +1,6 @@
+<?php
+$asUser = false;
+?>
 @extends('layouts.app')
 
 @section('content')
@@ -8,19 +11,15 @@
             </div>
             <table class="table">
                 <tr>
-                    <th>Id </th>
                     <th>Nom </th>
                     <th>Contenu</th>
                     <th>Image</th>
-                    <th>Animateur responsable</th>
-                    <th>Editer</th>
+                    <th>Responsable</th>
+                    <th>Éditer</th>
                     <th>Supprimer</th>
                 </tr>
                 @foreach($sections as $section)
                     <tr>
-                        <td>
-                            <p>{{ $section->id }}</p>
-                        </td>
                         <td>
                             <p>{{ $section->name }}</p>
                         </td>
@@ -36,17 +35,21 @@
                         </td>
                         <td>
                             @if($section->user)
-                                <p>{{ $section->user->totem }}</p>
+                                @if($section->user->totem)
+                                    <p>{{ $section->user->totem }}</p>
+                                @else
+                                    <p>{{ $section->user->firstname }} {{ $section->user->lastname }}</p>
+                                @endif
                             @endif
                         </td>
                         <td>
-                            <p><a class="btn btn-primary" href="{{route('admin.sections.edit', $section)}}">Editer</a></p>
+                            <p><a class="btn btn-primary" href="{{route('admin.sections.edit', $section)}}">Éditer</a></p>
                         </td>
                         <td>
                             {!! Form::model($section, ['route' => ['admin.sections.destroy', $section->id], 'method' => 'DELETE'])!!}
                                 <div class="form-group">
 
-                                    {!! Form::submit('Delete', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
+                                    {!! Form::submit('X', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
                                 </div>
                             {!! Form::close() !!}
                         </td>

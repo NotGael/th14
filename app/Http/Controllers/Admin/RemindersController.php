@@ -10,8 +10,8 @@ use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 Use App\Http\Requests\EditReminderRequest;
-
 use App\Reminder;
+use App\Section;
 
 class RemindersController extends Controller
 {
@@ -34,7 +34,8 @@ class RemindersController extends Controller
     public function create()
     {
         $reminder = new Reminder();
-        return view('admin.reminders.create', compact('reminder'));
+        $sections = Section::lists('name','id');
+        return view('admin.reminders.create', compact('reminder', 'sections'));
     }
 
     /**
@@ -46,6 +47,8 @@ class RemindersController extends Controller
     public function store(Request $request)
     {
         $reminder = Reminder::create($request->all());
+        $reminder->user_id = Auth::user()->id;
+        $reminder->save();
         return redirect(route('admin.rappels.index', $reminder));
     }
 
@@ -70,7 +73,8 @@ class RemindersController extends Controller
     public function edit($id)
     {
         $reminder = Reminder::findOrFail($id);
-        return view('admin.reminders.edit', compact('reminder'));
+        $sections = Section::lists('name','id');
+        return view('admin.reminders.edit', compact('reminder', 'sections'));
     }
 
     /**

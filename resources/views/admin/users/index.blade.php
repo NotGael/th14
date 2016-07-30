@@ -68,7 +68,16 @@
                             {!! Form::close() !!}
                         </td>
                         <td>
-                            <p><a class="btn btn-success" href="{{route('admin.users.edit', $user)}}">V</a></p>
+                            {!! Form::model($user, ['method' => 'put', 'url' => action('Admin\PostsController@update', $user)]) !!}
+                                <div class="form-group">
+                                    @if($user->grade == 0)
+                                        {!! Form::hidden('grade', 'A') !!}
+                                        {!! Form::submit('Autoriser', array('class'=>'btn btn-success')) !!}
+                                    @else($user->grade == 1)
+                                        {!! Form::submit('Autoriser', array('class'=>'btn btn-success',  'disabled' => 'disabled')) !!}
+                                    @endif
+                                </div>
+                            {!! Form::close() !!}
                         </td>
                     </tr>
                 @endforeach

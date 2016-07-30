@@ -22,8 +22,9 @@ $user2 = App\User::Create(['id' => 2,'address_id' => 2,'section_id' => 2,'grade'
 $user3 = App\User::Create(['id' => 3,'address_id' => 2,'section_id' => 3,'grade' => 2,'firstname' => 'Thomas', 'lastname' => 'Chauvaux', 'totem' => '31', 'email' => 'test3@test.be', 'password' => bcrypt('bonjour'), 'tel' => 0400000002]);
 $user4 = App\User::Create(['id' => 4,'address_id' => 3,'section_id' => 4,'grade' => 2,'firstname' => 'Thomas', 'lastname' => 'Bruyer', 'totem' => 'LAmiBruyer', 'email' => 'test4@test.be', 'password' => bcrypt('bonjour'), 'tel' => 0400000003]);
 $user5 = App\User::Create(['id' => 5,'address_id' => 1,'section_id' => 5,'grade' => 3,'firstname' => 'Yves', 'lastname' => 'Fontenelle', 'totem' => 'Papa', 'email' => 'test5@test.be', 'password' => bcrypt('bonjour'), 'tel' => 0400000004]);
-$user6 = App\User::Create(['id' => 6,'address_id' => 4,'section_id' => 1,'grade' => 1,'firstname' => 'Maël', 'lastname' => 'Bernard', 'email' => 'test6@test.com', 'password' => bcrypt('bonjour')]);
-$user7 = App\User::Create(['id' => 7,'address_id' => 4,'grade' => 0,'firstname' => 'Régis', 'lastname' => 'Fontenelle', 'email' => 'test7@test.com', 'password' => bcrypt('bonjour'), 'tel' => 0400000005]);
+$user6 = App\User::Create(['id' => 6,'address_id' => 4,'section_id' => 1,'grade' => 1,'firstname' => 'Maël', 'lastname' => 'Bernard', 'email' => 'test6@test.be', 'password' => bcrypt('bonjour')]);
+$user7 = App\User::Create(['id' => 7,'address_id' => 4,'grade' => 0,'firstname' => 'Régis', 'lastname' => 'Fontenelle', 'email' => 'test7@test.be', 'password' => bcrypt('bonjour'), 'tel' => 0400000005]);
+$user8 = App\User::Create(['id' => 8,'address_id' => 1,'section_id' => 1,'grade' => 3,'firstname' => 'Pascale', 'lastname' => 'Defrêne', 'email' => 'test8@test.be', 'password' => bcrypt('bonjour'), 'tel' => 0400000006]);
 $section1 = App\Section::Create(['id' => 1,'user_id' => 1,'name' => 'Baladin','content' => 'Des 3 à 8 ans vis des aventures Baladin !']);
 $section2 = App\Section::Create(['id' => 2,'user_id' => 2,'name' => 'Louveteau','content' => 'Des 8 à 12 ans vis des aventures Louveteau !']);
 $section3 = App\Section::Create(['id' => 3,'user_id' => 3,'name' => 'Éclaireur','content' => 'Des 12 à 16 ans vis des aventures Éclaireur !']);

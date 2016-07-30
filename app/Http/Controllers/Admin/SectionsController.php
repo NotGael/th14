@@ -26,7 +26,7 @@ class SectionsController extends Controller
     public function index()
     {
         $sections = Section::get();
-        return view('admin.sections.index', compact('sections'));
+        return view('admin.sections.index', compact('sections', 'users_section'));
     }
 
     /**
@@ -136,7 +136,15 @@ class SectionsController extends Controller
         $section = Section::findOrFail($id);
         $users = User::lists('totem', 'id');
         $users_section = User::where('section_id', $id)->get();
-        return view('admin.sections.edit', compact('section', 'users', 'users_section'));
+        if($section->photography_id)
+        {
+            $photography = Photography::findOrFail($section->photography_id);
+        }
+        else
+        {
+            $photography = null;
+        }
+        return view('admin.sections.edit', compact('section', 'users', 'users_section', 'photography'));
     }
 
     /**
@@ -148,8 +156,57 @@ class SectionsController extends Controller
      */
     public function update(EditSectionRequest $request, $id)
     {
+        if($request->get('online') == null)
+        {
+            $online = false;
+        }
+        else
+        {
+            $online = true;
+        }
+
         $section = Section::findOrFail($id);
         $section->update($request->all());
+
+        if($section->photography_id)
+        {
+            $photography = Photography::findOrFail($section->photography_id);
+            if($photography)
+            {
+                $photography->online = $online;
+                $photography->save();
+            }
+        }
+        if(!empty(Input::file('imageSection')))
+        {
+            if($section->photography_id)
+            {
+
+                $destinationFolder = '/imgs/sections/';
+                $destinationThumbnail = '/imgs/sections/thumbnails/';
+
+                $file = Input::file('imageSection');
+                $extension = $request->file('imageSection')->getClientOriginalExtension();
+
+                // Delete old file
+                File::delete($destinationFolder.$photography->image_name.'.'.$extension);
+                File::delete($destinationThumbnail.'thumb'.$photography->image_name.'.'.$extension);
+                //create instance of image from temp upload
+                $image = Image::make($file->getRealPath());
+
+                //save image with thumbnail
+                $image->save(public_path() . $destinationFolder . $photography->image_name . '.' . $extension)
+                    ->resize(60, 60)
+                    ->save(public_path() . $destinationThumbnail . 'thumb-' . $photography->image_name . '.' . $extension);
+                $photography->image_extension = $extension;
+
+                $photography->save();
+            }
+            else
+            {
+
+            }
+        }
         return redirect(route('admin.sections.index', $id))->with('success', 'La section a bien été sauvegardé');
     }
 
@@ -161,6 +218,9 @@ class SectionsController extends Controller
      */
     public function destroy($id)
     {
+        $photography = Photography::findOrFail($id);
+        File::delete($destinationFolder.$photography->image_name.'.'.$extension);
+        File::delete($destinationThumbnail.'thumb'.$photography->image_name.'.'.$extension);
         Section::destroy($id);
         return redirect()->route('admin.sections.index');
     }

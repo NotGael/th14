@@ -8,21 +8,17 @@
             </div>
             <table class="table">
                 <tr>
-                    <th>Id</th>
                     <th>Titre</th>
                     <th>URL</th>
                     <th>Contenu</th>
-                    <th>Auteur</th>
                     <th>Section</th>
-                    <th>Editer</th>
+                    <th>Auteur</th>
+                    <th>Éditer</th>
                     <th>Supprimer</th>
                     <th>Publier</th>
                 </tr>
                 @foreach($posts as $post)
                     <tr>
-                        <td>
-                            <p>{{ $post->id }}</p>
-                        </td>
                         <td>
                             <p><b>{{ $post->title }}</b><p>
                         </td>
@@ -33,17 +29,21 @@
                             <p>{{ $post->content }}</p>
                         </td>
                         <td>
-                            @if($post->user)
-                                <p>{{ $post->user->totem }}</p>
-                            @endif
-                        </td>
-                        <td>
                             @if($post->section)
                                 <p>{{ $post->section->name }}</p>
                             @endif
                         </td>
                         <td>
-                            <p><a class="btn btn-primary" href="{{route('admin.articles.edit', $post)}}">Editer</a></p>
+                            @if($post->user)
+                                @if($post->user->totem)
+                                    <p>{{ $post->user->totem }}</p>
+                                @else
+                                    <p>{{ $post->user->firstname }} {{ $post->user->lastname }}</p>
+                                @endif
+                            @endif
+                        </td>
+                        <td>
+                            <p><a class="btn btn-primary" href="{{route('admin.articles.edit', $post)}}">Éditer</a></p>
                         </td>
                         <td>
                             {!! Form::model($post, ['route' => ['admin.articles.destroy', $post->id], 'method' => 'DELETE'])!!}

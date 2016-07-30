@@ -16,10 +16,12 @@
         {!! Form::text('title', null, ['class' => 'form-control']) !!}
     </div>
 
+    @if(!$post->id)
     <div class="form-group">
         {!! Form::label('slug', 'URL') !!}
         {!! Form::text('slug', null, ['class' => 'form-control']) !!}
     </div>
+    @endif
 
     <div class="form-group">
         {!! Form::label('section_id', 'Section') !!}
@@ -31,14 +33,14 @@
         {!! Form::textarea('content', null, ['class' => 'form-control']) !!}
     </div>
 
+    @if(!$post->id)
     <div class="form-group">
         <label>
-            @if(!$post->id)
                 {!! Form::checkbox('online') !!}
                 En ligne ?
-            @endif
         </label>
     </div>
+    @endif
 
     <button class="btn btn-primary">Envoyer</button>
 

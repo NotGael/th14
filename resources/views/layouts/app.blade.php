@@ -61,7 +61,12 @@
                   <li><a href="{{ url('/login') }}">Connectez-vous</a></li>
               @else
               <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> {{ Auth::user()->totem }} <span class="caret"></span></a>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"> @if(Auth::user()->totem)
+                    {{ Auth::user()->totem }}
+                @else
+                    {{ Auth::user()->firstname }} {{ Auth::user()->lastname }}
+                @endif
+                <span class="caret"></span></a>
                 <ul class="dropdown-menu">
                     <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Se déconnecter</a></li>
                 </ul>

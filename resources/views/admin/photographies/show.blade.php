@@ -16,7 +16,7 @@
                 <img src="/th14/public/imgs/sections/{{ $photography->image_name . '.' . $photography->image_extension . '?'. 'time='. time() }}">
             </a>
         @endif
-
+    </div>
     <div>
 
         {{ $photography->image_name }} - thumbnail :  <br>

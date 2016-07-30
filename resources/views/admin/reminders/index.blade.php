@@ -8,22 +8,16 @@
             </div>
             <table class="table">
                 <tr>
-                    <th>Id</th>
-                    <th>Auteur</th>
-                    <th>Section</th>
                     <th>Contenu</th>
-                    <th>Editer</th>
+                    <th>Section</th>
+                    <th>Auteur</th>
+                    <th>Éditer</th>
                     <th>Supprimer</th>
                 </tr>
                 @foreach($reminders as $reminder)
                     <tr>
                         <td>
-                            <p>{{ $reminder->id }}</p>
-                        </td>
-                        <td>
-                            @if($reminder->user)
-                                <p>{{ $reminder->user->totem }}</p>
-                            @endif
+                            <b>{{ $reminder->content }}</b>
                         </td>
                         <td>
                             @if($reminder->section)
@@ -31,16 +25,22 @@
                             @endif
                         </td>
                         <td>
-                            <b>{{ $reminder->content }}</b>
+                            @if($reminder->user)
+                                @if($reminder->user->totem)
+                                    <p>{{ $reminder->user->totem }}</p>
+                                @else
+                                    <p>{{ $reminder->user->firstname }} {{ $reminder->user->lastname }}</p>
+                                @endif
+                            @endif
                         </td>
                         <td>
-                            <p><a class="btn btn-primary" href="{{route('admin.rappels.edit', $reminder)}}">Editer</a></p>
+                            <p><a class="btn btn-primary" href="{{route('admin.rappels.edit', $reminder)}}">Éditer</a></p>
                         </td>
                         <td>
                             {!! Form::model($reminder, ['route' => ['admin.rappels.destroy', $reminder->id], 'method' => 'DELETE'])!!}
                                 <div class="form-group">
 
-                                    {!! Form::submit('Delete', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
+                                    {!! Form::submit('X', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
                                 </div>
                             {!! Form::close() !!}
                         </td>
