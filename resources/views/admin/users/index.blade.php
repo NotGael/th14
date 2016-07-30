@@ -8,7 +8,6 @@
             </div>
             <table class="table">
                 <tr>
-                    <th>Id</th>
                     <th>Grade</th>
                     <th>Prénom</th>
                     <th>Nom</th>
@@ -24,9 +23,6 @@
                 </tr>
                 @foreach($users as $user)
                     <tr>
-                        <td>
-                            <p>{{ $user->id }}</p>
-                        </td>
                         <td>
                             <p><b>{{ $user->grade }}</b><p>
                         </td>

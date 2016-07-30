@@ -51,18 +51,16 @@ class AuthController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'address_id' => 'max:255|default:null',
-            'section_id' => 'max:10|default:null',
-            'grade' => 'default:0',
-            'firstname' => 'required|max:255',
-            'lastname' => 'required|max:255',
-            'totem' => 'max:255|default:null',
-            'email' => 'required|email|max:255|unique:users',
-            'password' => 'required|min:6|confirmed',
-            'tel' => 'max:255|default:null',
-            'image_name' => 'max:255|default:null',
-            'image_path' => 'max:255|default:null',
-            'image_extension' => 'max:10|default:null',
+            'address_id' => 'integer | max:255',
+            'section_id' => 'integer | max:255',
+            'photography_id' => 'integer | max:255',
+            'grade' => 'numeric | min:0 | max:4',
+            'firstname' => 'alpha_num | max:50 | required',
+            'lastname' => 'alpha_num | max:50 | required',
+            'totem' => 'alpha_num | max:50',
+            'email' => 'required',
+            'password' => 'min:6 | max:255 |confirmed | required',
+            'tel' => 'numeric | size:10',
         ]);
     }
 
@@ -75,18 +73,16 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'address_id' => $data['address_id'],
-            'section_id' => $data['section_id'],
-            'grade' => $data['grade'],
+            'address_id' => 1,
+            'section_id' => 1,
+            'photography_id' => 1,
+            'grade' => 0,
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],
             'totem' => $data['totem'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
             'tel' => $data['tel'],
-            'image_name' => $data['image_name'],
-            'image_path' => $data['image_path'],
-            'image_extension' => $data['image_extension'],
         ]);
     }
 }
