@@ -1,4 +1,4 @@
-
+<?php $asUser = false; ?>
 @extends('layouts.app')
 
 @section('content')

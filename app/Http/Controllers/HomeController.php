@@ -31,9 +31,9 @@ class HomeController extends Controller
     public function index()
     {
         $reminders = Reminder::get();
-        $post = Post::with('section')->with('user')->where('online', true)->orderBy('published_at', 'desc')->first();
+        $posts = Post::with('section')->with('user')->where('online', true)->orderBy('published_at', 'desc')->take(2)->get();
         $photographies = Photography::all();
-        return view('main.index', compact('reminders', 'post', 'photographies'));
+        return view('main.index', compact('reminders', 'posts', 'photographies'));
     }
 
     public function reminders()
@@ -56,12 +56,12 @@ class HomeController extends Controller
 
     public function sections()
     {
-        $sections = Section::with('photography')->with('user')->get();
-        $users_section1 = User::where('section_id', 1)->get();
-        $users_section2 = User::where('section_id', 2)->get();
-        $users_section3 = User::where('section_id', 3)->get();
-        $users_section4 = User::where('section_id', 4)->get();
-        $users_section5 = User::where('section_id', 5)->get();
+        $sections = Section::with('photography')->with('user')->where('id', '<=', 5)->get();
+        $users_section1 = User::where([['section_id', 1], ['grade', '<=', 2]])->get();
+        $users_section2 = User::where([['section_id', 2], ['grade', '<=', 2]])->get();
+        $users_section3 = User::where([['section_id', 3], ['grade', '<=', 2]])->get();
+        $users_section4 = User::where([['section_id', 4], ['grade', '<=', 2]])->get();
+        $users_section5 = User::where([['section_id', 5], ['grade', '<=', 2]])->get();
         return view('main.sections', compact('sections', 'users_section1', 'users_section2', 'users_section3', 'users_section4', 'users_section5'));
     }
 }
