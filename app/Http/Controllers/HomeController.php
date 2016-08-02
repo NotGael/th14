@@ -9,6 +9,7 @@ use App\Reminder;
 use App\Post;
 use App\User;
 use App\Photography;
+use App\Section;
 
 class HomeController extends Controller
 {
@@ -51,5 +52,16 @@ class HomeController extends Controller
     {
         $photographies = Photography::with('section')->with('user')->get();
         return view('main.photographies', compact('photographies'));
+    }
+
+    public function sections()
+    {
+        $sections = Section::with('photography')->with('user')->get();
+        $users_section1 = User::where('section_id', 1)->get();
+        $users_section2 = User::where('section_id', 2)->get();
+        $users_section3 = User::where('section_id', 3)->get();
+        $users_section4 = User::where('section_id', 4)->get();
+        $users_section5 = User::where('section_id', 5)->get();
+        return view('main.sections', compact('sections', 'users_section1', 'users_section2', 'users_section3', 'users_section4', 'users_section5'));
     }
 }

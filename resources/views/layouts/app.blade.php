@@ -46,6 +46,10 @@
                 <a href="{{ url('/rappels') }}">Rappels</a></li>
               <li {{ Request::path() == 'articles' ? 'class=active' :  null }} >
                 <a href="{{ url('/articles') }}">Articles</a></li>
+
+                <li {{ Request::path() == 'sections' ? 'class=active' :  null }} >
+                  <a href="{{ url('/sections') }}">Sections</a></li>
+
               <li {{ Request::path() == 'photos' ? 'class=active' :  null }} >
                 <a href="{{ url('/photos') }}">Photos</a></li>
               <li {{ Request::path() == 'admin' ? 'class=active' :  null }} >

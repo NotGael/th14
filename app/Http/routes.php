@@ -16,6 +16,7 @@ Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/rappels', 'HomeController@reminders');
 Route::get('/photos', 'HomeController@photographies');
 Route::get('/articles', 'HomeController@posts');
+Route::get('/sections', 'HomeController@sections');
 
 Route::group(['middleware' => ['auth', 'admin'], 'namespace' => 'Admin', 'prefix' => 'admin'], function()
 {
