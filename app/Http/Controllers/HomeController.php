@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use App\Reminder;
 use App\Post;
 use App\User;
@@ -32,7 +32,13 @@ class HomeController extends Controller
     {
         $reminders = Reminder::get();
         $posts = Post::with('section')->with('user')->where('online', true)->orderBy('published_at', 'desc')->take(2)->get();
-        $photographies = Photography::where('image_type', 1)->get();
+        if(Auth::user())
+        {
+            if(Auth::user()->grade >= 1)
+            {
+                $photographies = Photography::where([['image_type', 1], ['online', 1]])->get();
+            }
+        }
         return view('main.index', compact('reminders', 'posts', 'photographies'));
     }
 
