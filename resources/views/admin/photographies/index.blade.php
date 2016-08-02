@@ -33,6 +33,10 @@
                                 <a href="{{route('admin.photos.show', $photography)}}">
                                     <img src="/th14/public/imgs/sections/thumbnails/{{ 'thumb-'. $photography->image_name . '.' . $photography->image_extension . '?'. 'time='. time() }}">
                                 </a>
+                            @elseif($photography->image_type == 3)
+                                <a href="{{route('admin.photos.show', $photography)}}">
+                                    <img src="/th14/public/imgs/users/thumbnails/{{ 'thumb-'. $photography->image_name . '.' . $photography->image_extension . '?'. 'time='. time() }}">
+                                </a>
                             @endif
                         </td>
                         <td>

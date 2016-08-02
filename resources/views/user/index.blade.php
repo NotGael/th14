@@ -21,7 +21,16 @@
                 <p>Code postale : {{ $user->address->postalcode }}</p>
                 <p>Ville : {{ $user->address->city }}</p>
             @endif
+            @if($user->photography)
+                <h3>Image</h3>
+                <img src="/th14/public/imgs/users/{{ $user->photography->image_name . '.' . $user->photography->image_extension . '?'. 'time='. time() }}">
+            @endif
             <a class="btn btn-primary btn-lg btn-block" href="{{url('user/address/'.Auth::user()->address_id.'/edit')}}">Changer mon adresse</a>
+            @if($user->photography)
+                <a class="btn btn-primary btn-lg btn-block" href="{{url('user/photography/'.Auth::user()->photography->id.'/edit')}}">Changer ma photo</a>
+            @else
+                <a class="btn btn-primary btn-lg btn-block" href="{{url('user/photography/create')}}">Ajouter une photo a mon profil</a>
+            @endif
         </div>
         <div class="col-xs-6 col-md-4"></div>
     </div>

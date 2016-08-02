@@ -34,4 +34,5 @@ class Photography extends Model
     {
         return $this->belongsTo('App\Post');
     }
+
 }

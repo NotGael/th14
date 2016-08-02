@@ -31,4 +31,5 @@ Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user
 {
     Route::get('/', ['as' => 'user.index', 'uses' => 'UserController@index']);
     Route::resource('address', 'AddressController');
+    Route::resource('photography', 'PhotographyController');
 });
