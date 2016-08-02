@@ -3,6 +3,11 @@
 @section('content')
     <div class="container">
         <div class="row">
+            <a href="{{ route('home') }}">
+                <h1>TH14</h1>
+            </a>
+        </div>
+        <div class="row">
             <div class="col-md-8">
                 <a href="{{ url('/rappels') }}">
                     <h2>Rappels</h2>
