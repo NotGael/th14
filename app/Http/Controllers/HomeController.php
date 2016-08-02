@@ -32,7 +32,7 @@ class HomeController extends Controller
     {
         $reminders = Reminder::get();
         $posts = Post::with('section')->with('user')->where('online', true)->orderBy('published_at', 'desc')->take(2)->get();
-        $photographies = Photography::all();
+        $photographies = Photography::where('image_type', 1)->get();
         return view('main.index', compact('reminders', 'posts', 'photographies'));
     }
 
