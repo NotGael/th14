@@ -68,6 +68,7 @@
                 @endif
                 <span class="caret"></span></a>
                 <ul class="dropdown-menu">
+                    <li><a href="{{ route('user.index') }}"><i class="fa fa-btn"></i>Mon profil</a></li>
                     <li><a href="{{ url('/logout') }}"><i class="fa fa-btn fa-sign-out"></i>Se déconnecter</a></li>
                 </ul>
               </li>

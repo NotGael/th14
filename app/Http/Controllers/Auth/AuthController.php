@@ -60,7 +60,7 @@ class AuthController extends Controller
             'totem' => 'alpha_num | max:50',
             'email' => 'required',
             'password' => 'min:6 | max:255 |confirmed | required',
-            'tel' => 'numeric | size:10',
+            'tel' => 'alpha_num | size:10',
         ]);
     }
 
@@ -73,9 +73,9 @@ class AuthController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'address_id' => 1,
-            'section_id' => 1,
-            'photography_id' => 1,
+            'address_id' => null,
+            'section_id' => $data['section_id'],
+            'photography_id' => null,
             'grade' => 0,
             'firstname' => $data['firstname'],
             'lastname' => $data['lastname'],

@@ -26,3 +26,9 @@ Route::group(['middleware' => ['auth', 'admin'], 'namespace' => 'Admin', 'prefix
     Route::resource('articles', 'PostsController');
     Route::resource('users', 'UsersController');
 });
+
+Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user'], function()
+{
+    Route::get('/', ['as' => 'user.index', 'uses' => 'UserController@index']);
+    Route::resource('address', 'AddressController');
+});
