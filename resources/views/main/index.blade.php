@@ -70,16 +70,31 @@
                 @foreach($posts as $post)
                     <div class="col-md-6">
                         <a href="{{ url('/articles') }}">
-                            <h3>{{ $post->title }}</h3>
+                            @if($post->section)
+                                @if($post->section->id == 1)
+                                    <h3 class="text-info">
+                                @elseif($post->section->id == 2)
+                                    <h3 class="text-success">
+                                @elseif($post->section->id == 3)
+                                    <h3 class="text-primary">
+                                @elseif($post->section->id == 4)
+                                    <h3 class="text-danger">
+                                @elseif($post->section->id == 5)
+                                    <h3 class="text-warning">
+                                @endif
+                            @endif
+                            {{ $post->title }}</h3>
                         </a>
                         <p>
                             {{ $post->content }}
-                            <em>-
-                                @if($reminder->user)
-                                    @if($reminder->user->totem)
-                                        {{ $reminder->user->totem }}
+                        </p>
+                        <p class="text-right">
+                            <em>
+                                @if($post->user)
+                                    @if($post->user->totem)
+                                        {{ $post->user->totem }}
                                     @else
-                                        {{ $reminder->user->firstname }} {{ $reminder->user->lastname }}
+                                        {{ $post->user->firstname }} {{ $post->user->lastname }}
                                     @endif
                                 @endif
                             </em>
