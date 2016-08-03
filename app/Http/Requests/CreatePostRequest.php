@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class EditReminderRequest extends Request
+class CreatePostRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,11 @@ class EditReminderRequest extends Request
     {
         return [
             'section_id' => 'integer | required | exists:sections,id',
-            'content' => 'min:10 | required',
+            'title' => 'min:10 | max:50 | required',
+            'slug' => 'alphanum',
+            'content' => 'min:50 | required',
+            'online' => 'boolean',
+            'published_at' => 'date',
         ];
     }
 }

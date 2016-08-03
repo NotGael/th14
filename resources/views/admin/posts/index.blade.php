@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@include('flash')
+
 @section('content')
     <div class="container">
         <div class="panel panel-default">
@@ -20,7 +22,9 @@
                 @foreach($posts as $post)
                     <tr>
                         <td>
-                            <p><b>{{ $post->title }}</b><p>
+                            <p>
+                                <b>{{ $post->title }}</b>
+                            <p>
                         </td>
                         <td>
                             <p>{{ $post->slug }}</p>
@@ -43,7 +47,7 @@
                             @endif
                         </td>
                         <td>
-                            <p><a class="btn btn-primary" href="{{route('admin.articles.edit', $post)}}">Éditer</a></p>
+                            <p><a class="btn btn-primary" href="{{route('admin.articles.edit', $post)}}">O</a></p>
                         </td>
                         <td>
                             {!! Form::model($post, ['route' => ['admin.articles.destroy', $post->id], 'method' => 'DELETE'])!!}

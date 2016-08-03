@@ -25,7 +25,7 @@ class CreateReminderRequest extends Request
     {
         return [
             'section_id' => 'integer | required | exists:sections,id',
-            'content' => 'required | min:10',
+            'content' => 'min:10 | required',
         ];
     }
 }

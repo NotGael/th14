@@ -21,7 +21,7 @@ class CreatePostsTable extends Migration
             $table->string('slug')->unique();
             $table->longText('content');
             $table->boolean('online')->default(false);
-            $table->dateTime('published_at');
+            $table->dateTime('published_at')->nullable()->default(null);
             $table->timestamps();
         });
     }

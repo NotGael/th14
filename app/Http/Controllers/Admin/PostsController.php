@@ -5,10 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\Post;
+Use App\Http\Requests\EditPostRequest;
+Use App\Http\Requests\CreatePostRequest;
 use App\Section;
-use App\User;
+use App\Post;
 
 class PostsController extends Controller
 {
@@ -31,7 +31,7 @@ class PostsController extends Controller
     public function create()
     {
         $post = new Post();
-        $sections = Section::lists('name','id');
+        $sections = Section::where('id', '<=', 5)->lists('name','id');
         return view('admin.posts.create', compact('post', 'sections'));
     }
 
@@ -41,7 +41,7 @@ class PostsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreatePostRequest $request)
     {
         if($request->get('online') == null)
         {
@@ -59,7 +59,7 @@ class PostsController extends Controller
             'content' => $request->get('content'),
             'online' => $online,
         ]);
-        return redirect(route('admin.articles.index', $post));
+        return redirect()->route('admin.articles.index')->with('success', 'L\'article a bien été sauvegardé');
     }
 
     /**
@@ -70,8 +70,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        $post = Post::published()->where('id', $id)->firstOrFail();
-        return $post;
+        //
     }
 
     /**
@@ -83,7 +82,7 @@ class PostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $sections = Section::lists('name', 'id');
+        $sections = Section::where('id', '<=', 5)->lists('name','id');
         return view('admin.posts.edit', compact('post', 'sections'));
     }
 
@@ -94,11 +93,11 @@ class PostsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditPostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         $post->update($request->all());
-        return redirect(route('admin.articles.index', $id))->with('success', 'L\'article a bien été sauvegardé');
+        return redirect()->route('admin.articles.index')->with('success', 'L\'article a bien été sauvegardé');
     }
 
     /**

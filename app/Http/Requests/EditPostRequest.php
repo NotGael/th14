@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class EditReminderRequest extends Request
+class EditPostRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,12 @@ class EditReminderRequest extends Request
     public function rules()
     {
         return [
-            'section_id' => 'integer | required | exists:sections,id',
-            'content' => 'min:10 | required',
+            'section_id' => 'integer | exists:sections,id',
+            'title' => 'min:10 | max:50',
+            'slug' => 'alphanum',
+            'content' => 'min:50',
+            'online' => 'boolean',
+            'published_at' => 'date',
         ];
     }
 }

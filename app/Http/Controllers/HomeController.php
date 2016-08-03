@@ -52,6 +52,8 @@ class HomeController extends Controller
     {
         $posts = Post::get();
         return view('main.posts', compact('posts'));
+
+        // $post = Post::published()->where('id', $id)->firstOrFail();
     }
 
     public function photographies()
