@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@include('flash')
+
 @section('content')
     <div class="container">
         <div class="panel panel-default">
@@ -34,31 +36,31 @@
                             @endif
                         </td>
                         <td>
-                            <p><a class="btn btn-primary" href="{{route('admin.rappels.edit', $reminder)}}">Éditer</a></p>
+                            <p>
+                                <a class="btn btn-primary" href="{{route('admin.rappels.edit', $reminder)}}">O</a>
+                            </p>
                         </td>
                         <td>
                             {!! Form::model($reminder, ['route' => ['admin.rappels.destroy', $reminder->id], 'method' => 'DELETE'])!!}
                                 <div class="form-group">
-
                                     {!! Form::submit('X', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
                                 </div>
                             {!! Form::close() !!}
                         </td>
                     </tr>
-
                 @endforeach
             </table>
             <div class="panel-body">
-                <p><a class="btn btn-success" href="{{route('admin.rappels.create')}}">Nouveau rappel</a></p>
+                <p>
+                    <a class="btn btn-success" href="{{route('admin.rappels.create')}}">Nouveau rappel</a>
+                </p>
             </div>
+        </div>
     </div>
-@endsection
-
-@section('scripts')
     <script>
        function ConfirmDelete()
        {
-           var x = confirm("Are you sure you want to delete?");
+           var x = confirm("Êtes-vous sûr de vouloir supprimer ?");
            if(x)
            {
                return true;

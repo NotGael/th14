@@ -3,15 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 Use App\Http\Requests\EditReminderRequest;
-use App\Reminder;
+Use App\Http\Requests\CreateReminderRequest;
 use App\Section;
+use App\Reminder;
 
 class RemindersController extends Controller
 {
@@ -34,7 +31,7 @@ class RemindersController extends Controller
     public function create()
     {
         $reminder = new Reminder();
-        $sections = Section::lists('name','id');
+        $sections = Section::where('id', '<=', 5)->lists('name','id');
         return view('admin.reminders.create', compact('reminder', 'sections'));
     }
 
@@ -44,12 +41,12 @@ class RemindersController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateReminderRequest $request)
     {
         $reminder = Reminder::create($request->all());
         $reminder->user_id = Auth::user()->id;
         $reminder->save();
-        return redirect(route('admin.rappels.index', $reminder));
+        return redirect()->route('admin.rappels.index')->with('success', 'Le rappel a bien été sauvegardé');
     }
 
     /**
@@ -60,8 +57,7 @@ class RemindersController extends Controller
      */
     public function show($id)
     {
-        $reminder = Reminder::findOrFail($id);
-        return $reminder;
+        //
     }
 
     /**
@@ -73,7 +69,7 @@ class RemindersController extends Controller
     public function edit($id)
     {
         $reminder = Reminder::findOrFail($id);
-        $sections = Section::lists('name','id');
+        $sections = Section::where('id', '<=', 5)->lists('name','id');
         return view('admin.reminders.edit', compact('reminder', 'sections'));
     }
 
@@ -84,11 +80,11 @@ class RemindersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditReminderRequest $request, $id)
     {
         $reminder = Reminder::findOrFail($id);
         $reminder->update($request->all());
-        return redirect(route('admin.rappels.index', $id))->with('success', 'Le reminder a bien été sauvegardé');
+        return redirect()->route('admin.rappels.index')->with('success', 'Le rappel a bien été sauvegardé');
     }
 
     /**

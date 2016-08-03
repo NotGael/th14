@@ -1,13 +1,15 @@
-<?php
-if($reminder->id) {
-    $options = ['method' => 'put', 'url' => action('Admin\RemindersController@update', $reminder)];
-} else {
-    $options = ['method' => 'post', 'url' => action('Admin\RemindersController@store', $reminder)];
-}
-?>
-
 @include('errors.errors')
-@include('flash')
+
+<?php
+    if($reminder->id)
+    {
+        $options = ['method' => 'put', 'url' => action('Admin\RemindersController@update', $reminder)];
+    }
+    else
+    {
+        $options = ['method' => 'post', 'url' => action('Admin\RemindersController@store', $reminder)];
+    }
+?>
 
 {!! Form::model($reminder, $options) !!}
 

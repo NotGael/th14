@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class EditReminderRequest extends Request
+class CreateReminderRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,7 +25,7 @@ class EditReminderRequest extends Request
     {
         return [
             'section_id' => 'integer | required | exists:sections,id',
-            'content' => 'required | min:10'
+            'content' => 'required | min:10',
         ];
     }
 }
