@@ -104,7 +104,8 @@ class PhotographiesController extends Controller
     public function update(EditPhotographyRequest $request, $id)
     {
         $photography = Photography::findOrFail($id);
-        $photography->online = $request->get('online');
+        $online = ($request->get('online') == null) ? 0 : 1;
+        $photography->online = $online;
         if (!empty(Input::file('image'))){
             //define the paths
             $destinationFolder = '/imgs/photographies/';
