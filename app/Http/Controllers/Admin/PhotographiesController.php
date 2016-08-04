@@ -67,6 +67,7 @@ class PhotographiesController extends Controller
         $image->save(public_path() . $destinationFolder . $imageName . '.' . $extension)
             ->resize(60, 60)
             ->save(public_path() . $destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
+        return redirect()->route('admin.photos.index')->with('success', 'La photo a bien été sauvegardée');
     }
 
     /**
@@ -121,6 +122,7 @@ class PhotographiesController extends Controller
             $photography->image_extension = $extension;
         }
         $photography->save();
+        return redirect()->route('admin.photos.index')->with('success', 'La photo a bien été sauvegardée');
     }
 
     /**
