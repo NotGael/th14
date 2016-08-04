@@ -33,21 +33,29 @@
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
+                        <li {{ Request::path() == 'sections' ? 'class=active' :  null }}>
+                            <a href="{{ url('/sections') }}">Sections</a>
+                        </li>
                         <li {{ Request::path() == 'rappels' ? 'class=active' :  null }}>
                             <a href="{{ url('/rappels') }}">Rappels</a>
                         </li>
                         <li {{ Request::path() == 'articles' ? 'class=active' :  null }}>
                             <a href="{{ url('/articles') }}">Articles</a>
                         </li>
-                        <li {{ Request::path() == 'sections' ? 'class=active' :  null }}>
-                            <a href="{{ url('/sections') }}">Sections</a>
-                        </li>
-                        <li {{ Request::path() == 'photos' ? 'class=active' :  null }}>
-                            <a href="{{ url('/photos') }}">Photos</a>
-                        </li>
-                        <li {{ Request::path() == 'admin' ? 'class=active' :  null }}>
-                            <a href="{{ url('/admin') }}">Admin</a>
-                        </li>
+                        @if(Auth::user())
+                            @if (Auth::user()->grade >= 1)
+                            <li {{ Request::path() == 'photos' ? 'class=active' :  null }}>
+                                <a href="{{ url('/photos') }}">Photos</a>
+                            </li>
+                            @endif
+                        @endif
+                        @if(Auth::user())
+                            @if (Auth::user()->grade >= 2)
+                                <li {{ Request::path() == 'admin' ? 'class=active' :  null }}>
+                                    <a href="{{ url('/admin') }}">Admin</a>
+                                </li>
+                            @endif
+                        @endif
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->

@@ -15,6 +15,8 @@ Route::auth();
 Route::get('/', ['as' => 'home', 'uses' => 'HomeController@index']);
 Route::get('/rappels', 'HomeController@reminders');
 Route::get('/photos', 'HomeController@photographies');
+Route::get('/photo/{id}', 'HomeController@photography', function ($id){});
+
 Route::get('/articles', 'HomeController@posts');
 Route::get('/sections', 'HomeController@sections');
 

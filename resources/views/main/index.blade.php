@@ -111,8 +111,8 @@
                 <ul class="list-unstyled list-inline">
                     @foreach($photographies as $photography)
                         <li>
-                            <a href="{{ url('/photos') }}">
-                                <img src="/th14/public/{{ $photography->image_path . 'thumbnails/thumb-'. $photography->image_name . '.' . $photography->image_extension }}">
+                            <a href="{{ url('/photo/'.$photography->id) }}">
+                                <img src="/th14/public/imgs/photographies/thumbnails/thumb-{{ $photography->image_name . '.' . $photography->image_extension }}">
                             </a>
                         </li>
                     @endforeach

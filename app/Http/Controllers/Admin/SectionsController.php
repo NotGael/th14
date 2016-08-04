@@ -5,15 +5,13 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Http\Requests\CreateSectionRequest;
 Use App\Http\Requests\EditSectionRequest;
+use App\Photography;
 use App\Section;
 use App\User;
-use App\Photography;
 use Input;
 use Image;
-use flash;
 use File;
 
 class SectionsController extends Controller
@@ -49,52 +47,29 @@ class SectionsController extends Controller
      */
     public function store(CreateSectionRequest $request)
     {
-        if($request->get('online') == null)
-        {
-            $online = false;
-        }
-        else
-        {
-            $online = $request->get('online');
-        }
-        if(!empty(Input::file('imageSection'))){
+        if(!empty(Input::file('imageSection')) && Auth::user()){
             $name = $request->get('name');
             $photography = Photography::create([
-                'online' => $online,
+                'online' => 1,
                 'image_name' => $name,
                 'image_extension' => $request->file('imageSection')->getClientOriginalExtension(),
-                'image_type' => 2,
                 'user_id' => Auth::user()->id,
             ]);
-            //define the admin.image paths
+            //define the paths
             $destinationFolder = '/imgs/sections/';
             $destinationThumbnail = '/imgs/sections/thumbnails/';
-
             //assign the image paths to new model, so we can save them to DB
             $photography->image_path = $destinationFolder;
-
-            // format checkbox values and save model
-            $this->formatCheckboxValue($photography);
             $photography->save();
-
             //parts of the image we will need
             $file = $request->file('imageSection');
-
-            $imageName = $photography->image_name;
-            $extension = $request->file('imageSection')->getClientOriginalExtension();
-
             //create instance of image from temp upload
             $image = Image::make($file->getRealPath());
-
             //save image with thumbnail
-            $image->save(public_path() . $destinationFolder . $imageName . '.' . $extension)
+            $image->save(public_path() . $destinationFolder . $photography->image_name . '.' . $photography->image_extension)
                 ->resize(60, 60)
-                ->save(public_path() . $destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
-
-            // Process the uploaded image, add $model->attribute and folder name
-
+                ->save(public_path() . $destinationThumbnail . 'thumb-' . $photography->image_name . '.' . $photography->image_extension);
             $photography = Photography::where('image_name', $name)->first();
-
             $section = Section::create([
                 'user_id' => $request->get('user_id'),
                 'name' => $request->get('name'),
@@ -110,7 +85,7 @@ class SectionsController extends Controller
                 'content' => $request->get('content'),
             ]);
         }
-        return redirect(route('admin.sections.index', $section));
+        return redirect(route('admin.sections.index'))->with('success', 'La section a bien été sauvegardée');
     }
 
     /**
@@ -121,8 +96,7 @@ class SectionsController extends Controller
      */
     public function show($id)
     {
-        $section = Section::firstOrFail($id);
-        return $section;
+        //
     }
 
     /**
@@ -136,15 +110,7 @@ class SectionsController extends Controller
         $section = Section::findOrFail($id);
         $users = User::lists('totem', 'id');
         $users_section = User::where('section_id', $id)->get();
-        if($section->photography_id)
-        {
-            $photography = Photography::findOrFail($section->photography_id);
-        }
-        else
-        {
-            $photography = null;
-        }
-        return view('admin.sections.edit', compact('section', 'users', 'users_section', 'photography'));
+        return view('admin.sections.edit', compact('section', 'users', 'users_section'));
     }
 
     /**
@@ -156,58 +122,51 @@ class SectionsController extends Controller
      */
     public function update(EditSectionRequest $request, $id)
     {
-        if($request->get('online') == null)
-        {
-            $online = false;
-        }
-        else
-        {
-            $online = true;
-        }
-
+        $photography = null;
         $section = Section::findOrFail($id);
         $section->update($request->all());
-
-        if($section->photography_id)
+        if($section->photography)
         {
             $photography = Photography::findOrFail($section->photography_id);
-            if($photography)
-            {
-                $photography->online = $online;
-                $photography->save();
-            }
         }
         if(!empty(Input::file('imageSection')))
         {
-            if($section->photography_id)
+            if($section->photography)
             {
-
-                $destinationFolder = '/imgs/sections/';
-                $destinationThumbnail = '/imgs/sections/thumbnails/';
-
-                $file = Input::file('imageSection');
-                $extension = $request->file('imageSection')->getClientOriginalExtension();
-
                 // Delete old file
-                File::delete($destinationFolder.$photography->image_name.'.'.$extension);
-                File::delete($destinationThumbnail.'thumb'.$photography->image_name.'.'.$extension);
-                //create instance of image from temp upload
-                $image = Image::make($file->getRealPath());
-
-                //save image with thumbnail
-                $image->save(public_path() . $destinationFolder . $photography->image_name . '.' . $extension)
-                    ->resize(60, 60)
-                    ->save(public_path() . $destinationThumbnail . 'thumb-' . $photography->image_name . '.' . $extension);
-                $photography->image_extension = $extension;
-
-                $photography->save();
+                File::delete($section->photography->image_path.$section->name.'.'.$section->photography->image_extension);
+                File::delete($section->photography->image_path.'thumb'.$photography->image_name.'.'.$section->photography->image_extension);
             }
             else
             {
-
+                if(Auth::user())
+                {
+                    $photography = Photography::create([
+                        'online' => 1,
+                        'image_name' => $section->name,
+                        'image_extension' => $request->file('imageSection')->getClientOriginalExtension(),
+                        'user_id' => Auth::user()->id,
+                    ]);
+                    $section->photography_id = $photography->id;
+                    $section->save();
+                }
             }
+            //define the paths
+            $destinationFolder = '/imgs/sections/';
+            $destinationThumbnail = '/imgs/sections/thumbnails/';
+            //assign the image paths to new model, so we can save them to DB
+            $photography->image_path = $destinationFolder;
+            $photography->save();
+            //parts of the image we will need
+            $file = Input::file('imageSection');
+            //create instance of image from temp upload
+            $image = Image::make($file->getRealPath());
+            //save image with thumbnail
+            $image->save(public_path() . $destinationFolder . $photography->image_name . '.' . $photography->image_extension)
+                ->resize(60, 60)
+                ->save(public_path() . $destinationThumbnail . 'thumb-' . $photography->image_name . '.' . $photography->image_extension);
         }
-        return redirect(route('admin.sections.index', $id))->with('success', 'La section a bien été sauvegardé');
+        return redirect(route('admin.sections.index'))->with('success', 'La section a bien été sauvegardée');
     }
 
     /**
@@ -218,15 +177,13 @@ class SectionsController extends Controller
      */
     public function destroy($id)
     {
-        $photography = Photography::findOrFail($id);
-        File::delete($destinationFolder.$photography->image_name.'.'.$extension);
-        File::delete($destinationThumbnail.'thumb'.$photography->image_name.'.'.$extension);
+        $section = Section::findOrFail($id);
+        if($section->photography)
+        {
+            File::delete($section->photography->image_path.$section->photography->image_name.'.'.$section->photography->image_extension);
+            File::delete($section->photography->image_path.'thumb'.$section->photography->image_name.'.'.$section->photography->image_extension);
+        }
         Section::destroy($id);
         return redirect()->route('admin.sections.index');
-    }
-
-    public function formatCheckboxValue($myImage)
-    {
-        $myImage->online = ($myImage->online == null) ? 0 : 1;
     }
 }

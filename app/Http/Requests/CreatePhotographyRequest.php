@@ -25,7 +25,6 @@ class CreatePhotographyRequest extends Request
     {
         return [
             'image_name' => 'alpha_num | required | unique:photographies',
-            'image_type' => 'num',
             'online' => 'boolean',
             'image' => 'required | max:10000',
         ];

@@ -36,7 +36,7 @@ class HomeController extends Controller
         {
             if(Auth::user()->grade >= 1)
             {
-                $photographies = Photography::where([['image_type', 1], ['online', 1]])->get();
+                $photographies = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1]])->with('section')->with('user')->get();
             }
         }
         return view('main.index', compact('reminders', 'posts', 'photographies'));
@@ -58,8 +58,14 @@ class HomeController extends Controller
 
     public function photographies()
     {
-        $photographies = Photography::with('section')->with('user')->get();
+        $photographies = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1]])->with('user')->get();
         return view('main.photographies', compact('photographies'));
+    }
+
+    public function photography($id)
+    {
+        $photography = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1], ['id', $id]])->with('user')->first();
+        return view('main.photography', compact('photography'));
     }
 
     public function sections()

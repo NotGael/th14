@@ -24,10 +24,10 @@ class CreateSectionRequest extends Request
     public function rules()
     {
         return [
-            'user_id' => 'numeric | required | max:10000 | exists:users,id',
-            'photography_id' => 'numeric | max:10000 | exists:photographies,id',
-            'name' => 'alpha | required | min:5 | unique:sections',
-            'content' => 'alpha-num | required | min:50',
+            'user_id' => 'integer | required | exists:users,id',
+            'photography_id' => 'integer | exists:photographies,id',
+            'name' => 'alpha | min:5 | required | unique:sections',
+            'content' => 'min:50 | required',
         ];
     }
 }

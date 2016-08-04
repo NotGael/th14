@@ -29,7 +29,7 @@ $asUser = false;
                         <td>
                             @if($section->photography)
                                 <a href="{{route('admin.photos.show', $section->photography)}}">
-                                    <img src="/th14/public/imgs/sections/thumbnails/{{ 'thumb-'. $section->photography->image_name . '.' . $section->photography->image_extension . '?'. 'time='. time() }}">
+                                    <img src="/th14/public{{ $section->photography->image_path.'/thumbnails/thumb-'.$section->photography->image_name . '.' . $section->photography->image_extension . '?'. 'time='. time() }}">
                                 </a>
                             @endif
                         </td>
@@ -45,14 +45,24 @@ $asUser = false;
                         <td>
                             <p><a class="btn btn-primary" href="{{route('admin.sections.edit', $section)}}">Éditer</a></p>
                         </td>
-                        <td>
-                            {!! Form::model($section, ['route' => ['admin.sections.destroy', $section->id], 'method' => 'DELETE'])!!}
-                                <div class="form-group">
+                        @if($section->id > 5)
+                            <td>
+                                {!! Form::model($section, ['route' => ['admin.sections.destroy', $section->id], 'method' => 'DELETE'])!!}
+                                    <div class="form-group">
 
-                                    {!! Form::submit('X', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
-                                </div>
-                            {!! Form::close() !!}
-                        </td>
+                                        {!! Form::submit('X', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();')) !!}
+                                    </div>
+                                {!! Form::close() !!}
+                            </td>
+                        @else
+                            <td>
+                                {!! Form::model($section, ['route' => ['admin.sections.destroy', $section->id], 'method' => 'DELETE'])!!}
+                                    <div class="form-group">
+                                        {!! Form::submit('X', array('class'=>'btn btn-danger', 'Onclick' => 'return ConfirmDelete();', 'disabled' => 'disabled')) !!}
+                                    </div>
+                                {!! Form::close() !!}
+                            </td>
+                        @endif
                     </tr>
                 @endforeach
             </table>
@@ -61,9 +71,6 @@ $asUser = false;
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
     <script>
        function ConfirmDelete()
        {

@@ -5,13 +5,11 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
 use App\Http\Requests\CreatePhotographyRequest;
 use App\Http\Requests\EditPhotographyRequest;
 use App\Photography;
 use Input;
 use Image;
-use flash;
 use File;
 
 class PhotographiesController extends Controller
@@ -46,52 +44,29 @@ class PhotographiesController extends Controller
      */
     public function store(CreatePhotographyRequest $request)
     {
-        if($request->get('online') == null)
-        {
-            $online = false;
-        }
-        else
-        {
-            $online = $request->get('online');
-        }
-
-        //create new instance of model to save from form
+        $online = ($request->get('online') == null) ? 0 : 1;
         $photography = Photography::create([
             'online' => $online,
             'image_name' => $request->get('image_name'),
             'image_extension' => $request->file('image')->getClientOriginalExtension(),
-            'image_type' => 1,
             'user_id' => Auth::user()->id,
         ]);
-        //define the admin.image paths
+        //define the paths
         $destinationFolder = '/imgs/photographies/';
         $destinationThumbnail = '/imgs/photographies/thumbnails/';
-
         //assign the image paths to new model, so we can save them to DB
         $photography->image_path = $destinationFolder;
-
-        // format checkbox values and save model
-        $this->formatCheckboxValue($photography);
         $photography->save();
-
         //parts of the image we will need
         $file = $request->file('image');
-
         $imageName = $photography->image_name;
         $extension = $request->file('image')->getClientOriginalExtension();
-
         //create instance of image from temp upload
         $image = Image::make($file->getRealPath());
-
         //save image with thumbnail
         $image->save(public_path() . $destinationFolder . $imageName . '.' . $extension)
             ->resize(60, 60)
             ->save(public_path() . $destinationThumbnail . 'thumb-' . $imageName . '.' . $extension);
-
-        // Process the uploaded image, add $model->attribute and folder name
-
-        return redirect()->route('admin.photos.index', [$photography]);
-
     }
 
     /**
@@ -128,21 +103,17 @@ class PhotographiesController extends Controller
     public function update(EditPhotographyRequest $request, $id)
     {
         $photography = Photography::findOrFail($id);
-
         $photography->online = $request->get('online');
-
         if (!empty(Input::file('image'))){
-
+            //define the paths
             $destinationFolder = '/imgs/photographies/';
             $destinationThumbnail = '/imgs/photographies/thumbnails/';
-
+            //parts of the image we will need
             $file = Input::file('image');
             $imageName = $photography->image_name;
             $extension = $request->file('image')->getClientOriginalExtension();
-
             //create instance of image from temp upload
             $image = Image::make($file->getRealPath());
-
             //save image with thumbnail
             $image->save(public_path() . $destinationFolder . $imageName . '.' . $extension)
                 ->resize(60, 60)
@@ -150,7 +121,6 @@ class PhotographiesController extends Controller
             $photography->image_extension = $extension;
         }
         $photography->save();
-        return redirect()->route('admin.photos.index', compact('photography'));
     }
 
     /**
@@ -163,22 +133,13 @@ class PhotographiesController extends Controller
     {
         $photography = Photography::findOrFail($id);
         $thumbPath = $photography->image_path.'thumbnails/';
-
         File::delete(public_path($photography->image_path).
             $photography->image_name . '.' .
             $photography->image_extension);
-
         File::delete(public_path($thumbPath). 'thumb-' .
             $photography->image_name . '.' .
             $photography->image_extension);
-
         Photography::destroy($id);
-
         return redirect()->route('admin.photos.index');
-    }
-
-    public function formatCheckboxValue($myImage)
-    {
-        $myImage->online = ($myImage->online == null) ? 0 : 1;
     }
 }
