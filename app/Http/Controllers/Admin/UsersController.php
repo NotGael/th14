@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\User;
+Use App\Http\Requests\EditUserRequest;
 use App\Section;
+use App\User;
 
 class UsersController extends Controller
 {
@@ -64,7 +64,6 @@ class UsersController extends Controller
         $user = User::findOrFail($id);
         $sections = Section::lists('name', 'id');
         return view('admin.users.edit', compact('user', 'sections'));
-
     }
 
     /**
@@ -74,11 +73,11 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditUserRequest $request, $id)
     {
         $user = User::findOrFail($id);
         $user->update($request->all());
-        return redirect(route('admin.users.index', $id))->with('success', 'L\'utilisateur a bien été sauvegardé');
+        return redirect(route('admin.users.index'))->with('success', 'L\'utilisateur a bien été sauvegardé');
     }
 
     /**

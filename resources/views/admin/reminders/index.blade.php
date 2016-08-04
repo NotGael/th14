@@ -58,17 +58,17 @@
         </div>
     </div>
     <script>
-       function ConfirmDelete()
-       {
-           var x = confirm("Êtes-vous sûr de vouloir supprimer ?");
-           if(x)
-           {
-               return true;
-           }
-           else
-           {
-               return false;
-           }
-       }
+        function ConfirmDelete()
+        {
+            var x = confirm("Are you sure you want to delete?");
+            if(x)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     </script>
 @endsection

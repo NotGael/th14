@@ -3,6 +3,8 @@ $asUser = false;
 ?>
 @extends('layouts.app')
 
+@include('flash')
+
 @section('content')
     <div class="container">
         <div class="panel panel-default">
@@ -72,17 +74,17 @@ $asUser = false;
         </div>
     </div>
     <script>
-       function ConfirmDelete()
-       {
-           var x = confirm("Are you sure you want to delete?");
-           if(x)
-           {
-               return true;
-           }
-           else
-           {
-               return false;
-           }
-       }
+        function ConfirmDelete()
+        {
+            var x = confirm("Are you sure you want to delete?");
+            if(x)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     </script>
 @endsection
