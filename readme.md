@@ -13,10 +13,10 @@
 
 php artisan tinker
 
-$address1 = App\Address::firstOrCreate(['id' => 1,'street' => 'Rue de la Gare','number' => '8','postalcode' => 5630,'city' => 'Cerfontaine']);
-$address2 = App\Address::firstOrCreate(['id' => 2,'street' => 'Rue de la carpette en soie','number' => '4','postalcode' => 5630,'city' => 'Cerfontaine']);
-$address3 = App\Address::firstOrCreate(['id' => 3,'street' => 'Rue du mec posé','number' => '31bis','postalcode' => 5630,'city' => 'Cerfontaine']);
-$address4 = App\Address::firstOrCreate(['id' => 4,'street' => 'Rue de la biquette','number' => '31','postalcode' => 5630,'city' => 'Somzée']);
+$address1 = App\Address::Create(['id' => 1,'street' => 'Rue de la Gare','number' => '8','postalcode' => 5630,'city' => 'Cerfontaine']);
+$address2 = App\Address::Create(['id' => 2,'street' => 'Rue de la carpette en soie','number' => '4','postalcode' => 5630,'city' => 'Cerfontaine']);
+$address3 = App\Address::Create(['id' => 3,'street' => 'Rue du mec posé','number' => '31bis','postalcode' => 5630,'city' => 'Cerfontaine']);
+$address4 = App\Address::Create(['id' => 4,'street' => 'Rue de la biquette','number' => '31','postalcode' => 5630,'city' => 'Somzée']);
 $user1 = App\User::Create(['id' => 1,'address_id' => 1,'section_id' => 1,'grade' => 4,'firstname' => 'Gaël', 'lastname' => 'Fontenelle', 'totem' => 'Cirneco', 'email' => 'test@test.be', 'password' => bcrypt('bonjour'), 'tel' => 0400000000]);
 $user2 = App\User::Create(['id' => 2,'address_id' => 2,'section_id' => 2,'grade' => 2,'firstname' => 'Martin', 'lastname' => 'Chauvaux', 'totem' => 'Bonjour', 'email' => 'test2@test.be', 'password' => bcrypt('bonjour'), 'tel' => 0400000001]);
 $user3 = App\User::Create(['id' => 3,'address_id' => 2,'section_id' => 3,'grade' => 2,'firstname' => 'Thomas', 'lastname' => 'Chauvaux', 'totem' => '31', 'email' => 'test3@test.be', 'password' => bcrypt('bonjour'), 'tel' => 0400000002]);
