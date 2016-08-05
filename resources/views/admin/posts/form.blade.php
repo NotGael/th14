@@ -39,6 +39,9 @@
         </div>
     @endif
     <div class="form-group">
+        <p>
+            <b>Si vous avez fini de rédiger votre article et que vous cochez l'option online, vous pouvez décider de publier l'article plus tard en retrant une date. L'article ne sera visible par les utilisateurs qu'à partir de cette date.</b>
+        </p>
         {!! Form::label('published_at', 'Définir une date de publication') !!}
         {!! Form::date('published_at', \Carbon\Carbon::now(), ['class' => 'form-control']); !!}
     </div>

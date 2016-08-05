@@ -10,6 +10,7 @@ use App\Post;
 use App\User;
 use App\Photography;
 use App\Section;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -31,7 +32,7 @@ class HomeController extends Controller
     public function index()
     {
         $reminders = Reminder::get();
-        $posts = Post::with('section')->with('user')->where('online', true)->orderBy('published_at', 'desc')->take(2)->get();
+        $posts = Post::whereDate('published_at', '<=', Carbon::now())->where('online', 1)->orderBy('published_at', 'desc')->take(2)->get();
         if(Auth::user())
         {
             if(Auth::user()->grade >= 1)
@@ -50,7 +51,7 @@ class HomeController extends Controller
 
     public function posts()
     {
-        $posts = Post::get();
+        $posts = Post::whereDate('published_at', '<=', Carbon::now())->where('online', 1)->get();
         return view('main.posts', compact('posts'));
 
         // $post = Post::published()->where('id', $id)->firstOrFail();

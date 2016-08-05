@@ -6,9 +6,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <a href="{{ url('/sections') }}">
-                <h2>Sections</h2>
-            </a>
+            <h2>Sections</h2>
             <ul class="list-unstyled">
                 @if(isset($sections))
                     @foreach($sections as $section)

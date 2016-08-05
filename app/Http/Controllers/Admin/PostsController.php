@@ -58,6 +58,7 @@ class PostsController extends Controller
             'slug' => $request->get('slug'),
             'content' => $request->get('content'),
             'online' => $online,
+            'published_at' => $request->get('published_at'),
         ]);
         return redirect()->route('admin.articles.index')->with('success', 'L\'article a bien été sauvegardé');
     }
