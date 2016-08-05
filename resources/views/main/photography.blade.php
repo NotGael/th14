@@ -19,6 +19,9 @@
                 </p>
             @else
                 <h3 class="text-center">Aucune image n'a été trouvée</h3>
+                <p class="text-center">Vous devez êtres inscrit sur le site et être un utilisateur validé pour pouvoir visionner des photos</p>
+                <p class="text-center">Veuillez vous inscrires si vous êtes scouts ou parents</p>
+                <p class="text-center">Attendez que votre compte soit validé par un admin</p>
             @endif
         </div>
     </div>
