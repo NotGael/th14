@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@include('flash')
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -23,6 +25,14 @@
             @endif
             @if($user->photography)
                 <h3>Image</h3>
+                <p>
+                    Image visible par les autres utilisateurs : 
+                    @if($user->photography->online)
+                        Oui
+                    @else
+                        Non
+                    @endif
+                </p>
                 <img src="/th14/public/imgs/users/{{ $user->photography->image_name . '.' . $user->photography->image_extension . '?'. 'time='. time() }}">
             @endif
             <a class="btn btn-primary btn-lg btn-block" href="{{url('user/address/'.Auth::user()->address_id.'/edit')}}">Changer mon adresse</a>

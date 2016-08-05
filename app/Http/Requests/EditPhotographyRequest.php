@@ -25,7 +25,7 @@ class EditPhotographyRequest extends Request
     {
         return [
             'online' => 'boolean',
-            'image' => 'max:10000',
+            'imageUser' => 'max:10000',
         ];
     }
 }

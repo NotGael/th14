@@ -16,14 +16,12 @@
         {!! Form::label('imageUser', 'Image') !!}
         {!! Form::file('imageUser', null, array('required', 'class'=>'form-control')) !!}
     </div>
-    @if(!$photography->id)
-        <div class="form-group">
-            <label>
-                {!! Form::checkbox('online') !!}
-                En ligne ?
-            </label>
-        </div>
-    @endif
+    <div class="form-group">
+        <label>
+            {!! Form::checkbox('online') !!}
+            En ligne ?
+        </label>
+    </div>
     @if($photography->id)
         <div class="row">
             <img src="/th14/public/imgs/users/{{ $photography->image_name . '.' .

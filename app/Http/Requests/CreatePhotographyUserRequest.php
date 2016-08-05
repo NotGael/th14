@@ -25,7 +25,7 @@ class CreatePhotographyUserRequest extends Request
     {
         return [
             'online' => 'boolean',
-            'image' => 'required | max:10000',
+            'imageUser' => 'required | max:10000',
         ];
     }
 }
