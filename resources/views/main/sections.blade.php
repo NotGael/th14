@@ -57,43 +57,6 @@
                                     @endif
                                     </em>
                                 </p>
-                                <?php
-                                    if($section->id == 1)
-                                    {
-                                        if($users_section1)
-                                        {
-                                            $users_section = $users_section1;
-                                        }
-                                    }
-                                    elseif($section->id == 2)
-                                    {
-                                        if($users_section2)
-                                        {
-                                            $users_section = $users_section2;
-                                        }
-                                    }
-                                    elseif($section->id == 3)
-                                    {
-                                        if($users_section3)
-                                        {
-                                            $users_section = $users_section3;
-                                        }
-                                    }
-                                    elseif($section->id == 4)
-                                    {
-                                        if($users_section4)
-                                        {
-                                            $users_section = $users_section4;
-                                        }
-                                    }
-                                    elseif($section->id == 5)
-                                    {
-                                        if($users_section5)
-                                        {
-                                            $users_section = $users_section5;
-                                        }
-                                    }
-                                ?>
                                 @if($users_section)
                                     @if($section->id == 1)
                                         <h3 class="text-info">
@@ -113,21 +76,23 @@
                                     @endif
                                     <ul class="list-unstyled">
                                         @foreach($users_section as $user_section)
-                                            <div class="col-md-4">
-                                                <li>
-                                                    @if($user_section->photography)
-                                                        <img src="/th14/public/{{ $user_section->photography->image_path . 'thumbnails/thumb-'. $user_section->photography->image_name . '.' . $user_section->photography->image_extension }}">
-                                                    @endif
-                                                    <p>{{{ $user_section->firstname }}} {{{ $user_section->lastname }}}
-                                                        @if($user_section->totem)
-                                                            - <em>{{{ $user_section->totem }}}</em>
+                                            @if($user_section->section_id == $section->id)
+                                                <div class="col-md-4">
+                                                    <li>
+                                                        @if($user_section->photography)
+                                                            <img src="/th14/public/{{ $user_section->photography->image_path . 'thumbnails/thumb-'. $user_section->photography->image_name . '.' . $user_section->photography->image_extension }}">
                                                         @endif
-                                                    </p>
-                                                </li>
-                                            </div>
-                                            <?php
-                                                $asUser = true;
-                                            ?>
+                                                        <p>{{{ $user_section->firstname }}} {{{ $user_section->lastname }}}
+                                                            @if($user_section->totem)
+                                                                - <em>{{{ $user_section->totem }}}</em>
+                                                            @endif
+                                                        </p>
+                                                    </li>
+                                                </div>
+                                                <?php
+                                                    $asUser = true;
+                                                ?>
+                                            @endif
                                         @endforeach
                                         @if(!$asUser)
                                             <li class="list-group-item">
