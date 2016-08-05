@@ -119,6 +119,7 @@
                                 </li>
                             @endforeach
                         </ul>
+                        {{ $photographies->links() }}
                     @endif
                 </div>
             @endif

@@ -37,7 +37,7 @@ class HomeController extends Controller
         {
             if(Auth::user()->grade >= 1)
             {
-                $photographies = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1]])->with('section')->with('user')->get();
+                $photographies = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1]])->paginate(40);
             }
         }
         return view('main.index', compact('reminders', 'posts', 'photographies'));
@@ -51,7 +51,7 @@ class HomeController extends Controller
 
     public function posts()
     {
-        $posts = Post::whereDate('published_at', '<=', Carbon::now())->where('online', 1)->get();
+        $posts = Post::whereDate('published_at', '<=', Carbon::now())->where('online', 1)->orderBy('published_at', 'desc')->paginate(8);
         return view('main.posts', compact('posts'));
 
         // $post = Post::published()->where('id', $id)->firstOrFail();
@@ -63,7 +63,7 @@ class HomeController extends Controller
         {
             if(Auth::user()->grade >= 1)
             {
-                $photographies = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1]])->with('user')->get();
+                $photographies = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1]])->with('user')->paginate(40);
             }
         }
         return view('main.photographies', compact('photographies'));
