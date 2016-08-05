@@ -103,23 +103,25 @@
                 @endforeach
             @endif
         </div>
-        <div class="row">
+        @if(Auth::user())
             @if(Auth::user()->grade >= 1)
-                <a href="{{ url('/photos') }}">
-                    <h2>Photos</h2>
-                </a>
-                @if(isset($photographies))
-                    <ul class="list-unstyled list-inline">
-                        @foreach($photographies as $photography)
-                            <li>
-                                <a href="{{ url('/photo/'.$photography->id) }}">
-                                    <img src="/th14/public/imgs/photographies/thumbnails/thumb-{{ $photography->image_name . '.' . $photography->image_extension }}">
-                                </a>
-                            </li>
-                        @endforeach
-                    </ul>
-                @endif
+                <div class="row">
+                    <a href="{{ url('/photos') }}">
+                        <h2>Photos</h2>
+                    </a>
+                    @if(isset($photographies))
+                        <ul class="list-unstyled list-inline">
+                            @foreach($photographies as $photography)
+                                <li>
+                                    <a href="{{ url('/photo/'.$photography->id) }}">
+                                        <img src="/th14/public/imgs/photographies/thumbnails/thumb-{{ $photography->image_name . '.' . $photography->image_extension }}">
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
             @endif
-        </div>
+        @endif
     </div>
 @endsection
