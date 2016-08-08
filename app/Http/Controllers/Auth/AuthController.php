@@ -60,7 +60,7 @@ class AuthController extends Controller
             'totem' => 'alpha_num | max:50',
             'email' => 'required',
             'password' => 'min:6 | max:255 |confirmed | required',
-            'tel' => 'alpha_num | size:10',
+            'tel' => 'numeric | max:9999999999',
         ]);
     }
 

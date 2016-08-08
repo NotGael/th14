@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@include('errors.errors')
+
 @section('content')
 <div class="container">
     <div class="row">

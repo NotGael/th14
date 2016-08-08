@@ -78,9 +78,6 @@
             </div>
         </div>
     </div>
-@endsection
-
-@section('scripts')
     <script>
         function ConfirmDelete()
         {

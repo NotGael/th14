@@ -65,7 +65,7 @@
                             <p><a class="btn btn-primary" href="{{route('admin.users.edit', $user)}}">O</a></p>
                         </td>
                         <td>
-                            {!! Form::model($user, ['method' => 'put', 'url' => action('Admin\PostsController@update', $user)]) !!}
+                            {!! Form::model($user, ['method' => 'put', 'url' => action('Admin\UsersController@update', $user)]) !!}
                                 <div class="form-group">
                                     @if(Auth::user()->grade >= 2)
                                         @if($user->grade == 0)

@@ -28,6 +28,7 @@ Route::group(['middleware' => ['auth', 'admin'], 'namespace' => 'Admin', 'prefix
     Route::resource('photos', 'PhotographiesController');
     Route::resource('articles', 'PostsController');
     Route::resource('users', 'UsersController');
+    Route::resource('calendrier', 'EventsController');
 });
 
 Route::group(['middleware' => ['auth'], 'namespace' => 'User', 'prefix' => 'user'], function()
