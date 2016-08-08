@@ -20,13 +20,13 @@
                 <h3>Adresse</h3>
                 <p>Rue : {{ $user->address->street }}</p>
                 <p>Numéro : {{ $user->address->number }}</p>
-                <p>Code postale : {{ $user->address->postalcode }}</p>
+                <p>Code postal : {{ $user->address->postalcode }}</p>
                 <p>Ville : {{ $user->address->city }}</p>
             @endif
             @if($user->photography)
                 <h3>Image</h3>
                 <p>
-                    Image visible par les autres utilisateurs : 
+                    Image visible par les autres utilisateurs :
                     @if($user->photography->online)
                         Oui
                     @else

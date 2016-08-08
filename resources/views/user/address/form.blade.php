@@ -21,7 +21,7 @@
     </div>
 
     <div class="form-group">
-        {!! Form::label('postalcode', 'Code postale') !!}
+        {!! Form::label('postalcode', 'Code postal') !!}
         {!! Form::text('postalcode', null, ['class' => 'form-control']) !!}
     </div>
 
