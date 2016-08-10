@@ -9,6 +9,7 @@
             <a class="btn btn-primary btn-lg btn-block" href="{{route('admin.rappels.index')}}">Rappels</a>
             <a class="btn btn-primary btn-lg btn-block" href="{{route('admin.articles.index')}}">Articles</a>
             <a class="btn btn-primary btn-lg btn-block" href="{{route('admin.sections.index')}}">Sections</a>
+            <a class="btn btn-primary btn-lg btn-block" href="{{route('admin.calendrier.index')}}">Calendrier</a>
             <a class="btn btn-primary btn-lg btn-block" href="{{route('admin.photos.index')}}">Photos</a>
             <a class="btn btn-primary btn-lg btn-block" href="{{route('admin.users.index')}}">Utilisateurs</a>
         </div>

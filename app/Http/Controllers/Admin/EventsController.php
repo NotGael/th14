@@ -7,7 +7,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Section;
 use App\Event;
-
 class EventsController extends Controller
 {
     /**
@@ -28,7 +27,9 @@ class EventsController extends Controller
      */
     public function create()
     {
-        //
+        $event = new Event();
+        $sections = Section::where('id', '<=', 5)->lists('name','id');
+        return view('admin.events.create', compact('event', 'sections'));
     }
 
     /**
@@ -39,7 +40,8 @@ class EventsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $event = Event::create($request->all());
+        return redirect()->route('admin.calendrier.index')->with('success', 'L\'évévement a bien été sauvegardé');
     }
 
     /**
@@ -61,7 +63,9 @@ class EventsController extends Controller
      */
     public function edit($id)
     {
-        //
+        $event = Event::findOrFail($id);
+        $sections = Section::where('id', '<=', 5)->lists('name', 'id');
+        return view('admin.events.edit', compact('event', 'sections'));
     }
 
     /**
@@ -73,7 +77,9 @@ class EventsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $event = Event::findOrFail($id);
+        $event->update($request->all());
+        return redirect()->route('admin.calendrier.index')->with('success', 'L\'évévement a bien été sauvegardé');
     }
 
     /**
@@ -84,6 +90,7 @@ class EventsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Event::destroy($id);
+        return redirect()->route('admin.calendrier.index');
     }
 }
