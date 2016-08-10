@@ -30,11 +30,11 @@
     </div>
     <div class="form-group">
         {!! Form::label('start', 'Définir une date de début') !!}
-        {!! Form::date('start', \Carbon\Carbon::now(), ['class' => 'form-control']); !!}
+        {!! Form::date('start', \Carbon\Carbon::now()->format('m/d/Y' . " - " . 'H:i'), ['class' => 'form-control']); !!}
     </div>
     <div class="form-group">
         {!! Form::label('end', 'Définir une date de fin') !!}
-        {!! Form::date('end', \Carbon\Carbon::now(), ['class' => 'form-control']); !!}
+        {!! Form::date('end', \Carbon\Carbon::now()->format('m/d/Y' . " - " . 'H:i'), ['class' => 'form-control']); !!}
     </div>
     <button class="btn btn-success">Envoyer</button>
 {!! Form::close() !!}

@@ -18,8 +18,8 @@ class CreateEventsTable extends Migration
             $table->string('name');
             $table->string('slug')->unique();
             $table->longText('content')->nullable()->default(null);
-            $table->dateTime('start');
-            $table->dateTime('end')->nullable()->default(null);
+            $table->dateTime('start')->format('d-m-Y H:i');
+            $table->dateTime('end')->format('d-m-Y H:i')->nullable()->default(null);
             $table->timestamps();
         });
     }

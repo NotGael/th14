@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Carbon\Carbon;
 
 class Event extends Model
 {
@@ -23,5 +24,33 @@ class Event extends Model
     public function section()
     {
         return $this->belongsTo('App\Section');
+    }
+
+    public function getStartAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y' . " - " . 'H:i');
+    }
+
+    public function getEndAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y' . " - " . 'H:i');
+    }
+
+    public function formStartAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y' . " - " . 'H:i');
+    }
+
+    public function formEndtAttribute($value)
+    {
+        return Carbon::parse($value)->format('m/d/Y' . " - " . 'H:i');
+    }
+
+    public function setSlugAttribute($value)
+    {
+        if(empty($value))
+        {
+            $this->attributes['slug'] = str_slug($this->name);
+        }
     }
 }

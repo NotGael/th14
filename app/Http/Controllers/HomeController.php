@@ -10,6 +10,7 @@ use App\Post;
 use App\User;
 use App\Photography;
 use App\Section;
+use App\Event;
 use Carbon\Carbon;
 
 class HomeController extends Controller
@@ -37,10 +38,15 @@ class HomeController extends Controller
         {
             if(Auth::user()->grade >= 1)
             {
+                $events = Event::with('section')->whereDate('end', '>=', Carbon::now())->orderBy('start', 'asc')->take(2)->get();
                 $photographies = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1]])->paginate(40);
             }
         }
-        return view('main.index', compact('reminders', 'posts', 'photographies'));
+        else
+        {
+            $events = Event::with('section')->whereDate('end', '>=', Carbon::now())->where('section_id', 6)->orderBy('start', 'asc')->take(2)->get();
+        }
+        return view('main.index', compact('reminders', 'posts', 'events', 'photographies'));
     }
 
     public function reminders()
@@ -86,5 +92,21 @@ class HomeController extends Controller
         $sections = Section::with('photography')->with('user')->where('id', '<=', 5)->get();
         $users_section = User::where([['section_id', '<=', 5], ['grade', '<=', 2]])->get();
         return view('main.sections', compact('sections', 'users_section'));
+    }
+
+    public function events()
+    {
+        if(Auth::user())
+        {
+            if(Auth::user()->grade >= 1)
+            {
+                $events = Event::with('section')->whereDate('end', '>=', Carbon::now())->orderBy('start', 'asc')->paginate(8);
+            }
+        }
+        else
+        {
+            $events = Event::with('section')->whereDate('end', '>=', Carbon::now())->where('section_id', 6)->orderBy('start', 'asc')->paginate(8);
+        }
+        return view('main.events', compact('events'));
     }
 }

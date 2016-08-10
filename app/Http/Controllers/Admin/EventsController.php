@@ -4,7 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Http\Requests;
+use App\Http\Requests\CreateEventRequest;
+use App\Http\Requests\EditEventRequest;
 use App\Section;
 use App\Event;
 class EventsController extends Controller
@@ -28,7 +29,7 @@ class EventsController extends Controller
     public function create()
     {
         $event = new Event();
-        $sections = Section::where('id', '<=', 5)->lists('name','id');
+        $sections = Section::where('id', '<=', 6)->lists('name','id');
         return view('admin.events.create', compact('event', 'sections'));
     }
 
@@ -38,7 +39,7 @@ class EventsController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CreateEventRequest $request)
     {
         $event = Event::create($request->all());
         return redirect()->route('admin.calendrier.index')->with('success', 'L\'évévement a bien été sauvegardé');
@@ -75,7 +76,7 @@ class EventsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditEventRequest $request, $id)
     {
         $event = Event::findOrFail($id);
         $event->update($request->all());

@@ -9,7 +9,19 @@
         <div class="col-xs-6 col-md-4">
             <h1 class="text-center">Mon profil</h1>
             <h3>Infos</h3>
-            <p>Grade : {{ $user->grade }}</p>
+            <p>Grade :
+                @if($user->grade == 0)
+                    non validé
+                @elseif($user->grade == 1)
+                    Animé / Parent
+                @elseif($user->grade == 2)
+                    Animateur
+                @elseif($user->grade == 3)
+                    Admin
+                @elseif($user->grade == 4)
+                    Master
+                @endif
+            </p>
             <p>Nom : {{ $user->firstname }} {{ $user->lastname }}</p>
             <p>Totem : {{ $user->totem }}</p>
             @if($user->section)

@@ -42,6 +42,9 @@
                         <li {{ Request::path() == 'articles' ? 'class=active' :  null }}>
                             <a href="{{ url('/articles') }}">Articles</a>
                         </li>
+                        <li {{ Request::path() == 'calendrier' ? 'class=active' :  null }}>
+                            <a href="{{ url('/calendrier') }}">Calendrier</a>
+                        </li>
                         @if(Auth::user())
                             @if (Auth::user()->grade >= 1)
                             <li {{ Request::path() == 'photos' ? 'class=active' :  null }}>

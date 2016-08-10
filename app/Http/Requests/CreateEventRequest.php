@@ -29,7 +29,7 @@ class CreateEventRequest extends Request
             'slug' => 'alphanum',
             'content' => 'min:10 | required',
             'start' =>'date | required',
-            'end' =>'date | required',
+            'end' =>'date',
         ];
     }
 }

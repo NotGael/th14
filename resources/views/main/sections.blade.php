@@ -7,8 +7,8 @@
     <div class="container">
         <div class="row">
             <h2>Sections</h2>
-            <ul class="list-unstyled">
-                @if(isset($sections))
+            @if(isset($sections))
+                <ul class="list-unstyled">
                     @foreach($sections as $section)
                         <div class="row">
                             <li>
@@ -104,8 +104,8 @@
                             </li>
                         </div>
                     @endforeach
-                @endif
-            </ul>
+                </ul>
+            @endif
         </div>
     </div>
 @endsection
