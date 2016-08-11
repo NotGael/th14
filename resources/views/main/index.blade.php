@@ -115,6 +115,8 @@
                                     <h3 class="text-danger">
                                 @elseif($post->section->id == 5)
                                     <h3 class="text-warning">
+                                @elseif($post->section->id == 6)
+                                    <h3 class="text-warning">
                                 @endif
                             @endif
                             {{ $post->title }}</h3>

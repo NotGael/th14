@@ -90,7 +90,7 @@ class HomeController extends Controller
     public function sections()
     {
         $sections = Section::with('photography')->with('user')->where('id', '<=', 5)->get();
-        $users_section = User::where([['section_id', '<=', 5], ['grade', '<=', 2]])->get();
+        $users_section = User::where([['section_id', '<=', 5], ['grade', '>=', 2]])->get();
         return view('main.sections', compact('sections', 'users_section'));
     }
 
