@@ -8,7 +8,7 @@
             </a>
         </div>
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-md-8">
                 <a href="{{ url('/rappels') }}">
                     <h2>Rappels</h2>
                 </a>
@@ -44,14 +44,14 @@
                     </ul>
                 @endif
             </div>
-            <div class="col-md-6">
+            <div class="col-md-4">
                 <a href="{{ url('/calendrier') }}">
                     <h2>Calendrier</h2>
                 </a>
             </div>
             @if(isset($events))
                 @foreach($events as $event)
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         @if($event->section)
                             @if($event->section->id == 1)
                                 <div class="text-info">
@@ -64,7 +64,7 @@
                             @elseif($event->section->id == 5)
                                 <div class="text-warning">
                             @endif
-                            <h3>{{ $event->name }}</h3>
+                            <h4>{{ $event->name }}</h4>
                             @if($event->section)
                                 <p>Section : {{ $event->section->name }}</p>
                             @endif
@@ -78,7 +78,7 @@
                                 {{ $event->end }}
                             </p></div>
                         @else
-                            <h3>{{ $event->name }}</h3>
+                            <h4>{{ $event->name }}</h4>
                             @if($event->section)
                                 <p>Section : {{ $event->section->name }}</p>
                             @endif

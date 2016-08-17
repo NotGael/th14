@@ -38,13 +38,13 @@ class HomeController extends Controller
         {
             if(Auth::user()->grade >= 1)
             {
-                $events = Event::with('section')->whereDate('end', '>=', Carbon::now())->orderBy('start', 'asc')->take(2)->get();
+                $events = Event::with('section')->whereDate('end', '>=', Carbon::now())->orderBy('start', 'asc')->take(1)->get();
                 $photographies = Photography::where([['image_path', '/imgs/photographies/'], ['online', 1]])->paginate(40);
             }
         }
         else
         {
-            $events = Event::with('section')->whereDate('end', '>=', Carbon::now())->where('section_id', 6)->orderBy('start', 'asc')->take(2)->get();
+            $events = Event::with('section')->whereDate('end', '>=', Carbon::now())->where('section_id', 6)->orderBy('start', 'asc')->take(1)->get();
         }
         return view('main.index', compact('reminders', 'posts', 'events', 'photographies'));
     }
